@@ -1,0 +1,2577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electric Charges & Fields | JEE Advanced Mastery</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050510;
+  --bg2: #0a0a1f;
+  --card: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.08);
+  --blue: #4f8ef7;
+  --purple: #9b5de5;
+  --pink: #f72585;
+  --cyan: #4cc9f0;
+  --green: #06d6a0;
+  --yellow: #ffd166;
+  --orange: #f4a261;
+  --text: #e8e8ff;
+  --text2: #a0a0c0;
+  --text3: #6060a0;
+  --glow-blue: 0 0 40px rgba(79,142,247,0.3);
+  --glow-purple: 0 0 40px rgba(155,93,229,0.3);
+  --glow-pink: 0 0 40px rgba(247,37,133,0.3);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--purple), var(--blue)); border-radius: 3px; }
+
+/* ─── ANIMATED BG ─── */
+.bg-orbs {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18;
+  animation: orbFloat 20s ease-in-out infinite;
+}
+.orb1 { width: 600px; height: 600px; background: var(--purple); top: -200px; left: -200px; animation-delay: 0s; }
+.orb2 { width: 500px; height: 500px; background: var(--blue); bottom: -200px; right: -150px; animation-delay: -7s; }
+.orb3 { width: 400px; height: 400px; background: var(--pink); top: 40%; left: 50%; animation-delay: -14s; }
+
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-40px) scale(1.05); }
+  66% { transform: translate(-20px,30px) scale(0.95); }
+}
+
+/* ─── SIDEBAR NAV ─── */
+#sidebar {
+  position: fixed; left: 0; top: 0; height: 100vh; width: 240px;
+  background: rgba(5,5,16,0.95); backdrop-filter: blur(20px);
+  border-right: 1px solid var(--card-border);
+  z-index: 1000; display: flex; flex-direction: column;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--card-border);
+}
+.sidebar-logo h2 {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px;
+  background: linear-gradient(135deg, var(--blue), var(--purple), var(--pink));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+.sidebar-logo p { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+.progress-ring-wrap { padding: 16px; border-bottom: 1px solid var(--card-border); }
+.progress-label { font-size: 11px; color: var(--text2); margin-bottom: 8px; display: flex; justify-content: space-between; }
+.progress-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink)); border-radius: 2px; transition: width 0.5s ease; }
+
+.nav-section { padding: 8px 0; }
+.nav-section-title { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 16px; font-family: 'Space Mono', monospace; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px; font-size: 12.5px; color: var(--text2);
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+  position: relative;
+}
+.nav-item:hover, .nav-item.active {
+  color: var(--text); background: rgba(79,142,247,0.08);
+}
+.nav-item.active::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(var(--blue), var(--purple));
+}
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+.nav-item.active .nav-dot, .nav-item:hover .nav-dot { background: var(--blue); }
+.nav-item.done .nav-dot { background: var(--green); }
+
+/* ─── MAIN CONTENT ─── */
+#main { margin-left: 240px; position: relative; z-index: 1; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 60px 40px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 100% 100%, rgba(155,93,229,0.1) 0%, transparent 60%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(79,142,247,0.12); border: 1px solid rgba(79,142,247,0.3);
+  padding: 6px 16px; border-radius: 100px; font-size: 12px; color: var(--cyan);
+  font-family: 'Space Mono', monospace; margin-bottom: 24px;
+  animation: fadeInUp 0.6s ease both;
+}
+.hero-badge::before { content: '⚡'; }
+
+.hero h1 {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(32px, 5vw, 64px); line-height: 1.1;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.6s 0.1s ease both;
+}
+.hero h1 span {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 50%, var(--pink) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 16px; color: var(--text2); max-width: 600px; margin: 0 auto 36px;
+  animation: fadeInUp 0.6s 0.2s ease both;
+}
+
+.hero-stats {
+  display: flex; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; justify-content: center;
+  animation: fadeInUp 0.6s 0.3s ease both;
+}
+.hero-stat { text-align: center; }
+.hero-stat .num { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; color: var(--cyan); }
+.hero-stat .lbl { font-size: 11px; color: var(--text3); }
+
+.hero-cta {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  animation: fadeInUp 0.6s 0.4s ease both;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: white; border: none; padding: 12px 28px; border-radius: 10px;
+  font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--glow-blue); }
+.btn-secondary {
+  background: var(--card); border: 1px solid var(--card-border); color: var(--text);
+  padding: 12px 28px; border-radius: 10px; font-size: 14px; cursor: pointer;
+  transition: all 0.3s; font-family: 'DM Sans', sans-serif;
+}
+.btn-secondary:hover { border-color: var(--purple); background: rgba(155,93,229,0.08); }
+
+/* ─── SECTION WRAPPER ─── */
+.section { padding: 80px 48px; max-width: 1100px; margin: 0 auto; }
+.section-header { margin-bottom: 48px; }
+.section-tag {
+  font-family: 'Space Mono', monospace; font-size: 11px; color: var(--cyan);
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-tag::before { content: '//'; color: var(--text3); }
+.section h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 36px; line-height: 1.2; }
+.section h2 span { background: linear-gradient(135deg, var(--blue), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.section-sub { color: var(--text2); margin-top: 10px; font-size: 15px; }
+
+/* ─── CARDS ─── */
+.glass-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 16px; padding: 28px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+.glass-card:hover { border-color: rgba(79,142,247,0.3); box-shadow: var(--glow-blue); transform: translateY(-2px); }
+
+.concept-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 20px; overflow: hidden; margin-bottom: 32px;
+  transition: all 0.3s;
+}
+.concept-header {
+  padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+  cursor: pointer; border-bottom: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.02);
+}
+.concept-icon {
+  width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; font-size: 20px; flex-shrink: 0;
+}
+.concept-title { flex: 1; }
+.concept-title h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; margin-bottom: 3px; }
+.concept-title p { font-size: 12px; color: var(--text3); }
+.concept-chevron { color: var(--text3); font-size: 18px; transition: transform 0.3s; }
+.concept-card.open .concept-chevron { transform: rotate(180deg); }
+.concept-body { padding: 24px; display: none; }
+.concept-card.open .concept-body { display: block; }
+
+/* ─── GRID LAYOUTS ─── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+/* ─── ROADMAP ─── */
+.roadmap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.roadmap-item {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 14px; padding: 20px 16px; cursor: pointer; transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.roadmap-item::after {
+  content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s;
+  background: radial-gradient(circle at center, rgba(79,142,247,0.1), transparent);
+}
+.roadmap-item:hover::after { opacity: 1; }
+.roadmap-item:hover { border-color: rgba(79,142,247,0.4); transform: translateY(-3px); }
+.roadmap-item.done { border-color: rgba(6,214,160,0.4); }
+.roadmap-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text3); margin-bottom: 8px; }
+.roadmap-name { font-weight: 600; font-size: 13.5px; margin-bottom: 6px; }
+.roadmap-tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; display: inline-block; font-family: 'Space Mono', monospace; }
+.tag-core { background: rgba(79,142,247,0.15); color: var(--blue); }
+.tag-high { background: rgba(247,37,133,0.15); color: var(--pink); }
+.tag-formula { background: rgba(155,93,229,0.15); color: var(--purple); }
+.roadmap-check { position: absolute; top: 12px; right: 12px; font-size: 14px; opacity: 0; }
+.roadmap-item.done .roadmap-check { opacity: 1; }
+
+/* ─── FORMULA CARDS ─── */
+.formula-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 16px; overflow: hidden; transition: all 0.3s;
+}
+.formula-card:hover { border-color: rgba(155,93,229,0.4); box-shadow: var(--glow-purple); }
+.formula-top { padding: 20px; border-bottom: 1px solid var(--card-border); }
+.formula-main {
+  font-family: 'Space Mono', monospace; font-size: 18px; color: var(--cyan);
+  margin-bottom: 8px; word-break: break-all;
+}
+.formula-name { font-size: 12px; color: var(--text3); }
+.formula-body { padding: 20px; }
+.formula-row { display: flex; gap: 10px; font-size: 12.5px; margin-bottom: 8px; }
+.formula-row .key { color: var(--text3); width: 90px; flex-shrink: 0; font-family: 'Space Mono', monospace; font-size: 11px; }
+.formula-trick { background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.2); border-radius: 8px; padding: 10px 14px; margin-top: 12px; font-size: 12px; color: var(--yellow); }
+.formula-trap { background: rgba(247,37,133,0.06); border: 1px solid rgba(247,37,133,0.2); border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 12px; color: var(--pink); }
+
+/* ─── MATH/FORMULA TEXT ─── */
+.math {
+  font-family: 'Space Mono', monospace; background: rgba(79,142,247,0.08);
+  border: 1px solid rgba(79,142,247,0.2); padding: 2px 8px; border-radius: 6px;
+  font-size: 13px; color: var(--cyan); white-space: nowrap;
+}
+.math-block {
+  font-family: 'Space Mono', monospace; background: rgba(79,142,247,0.06);
+  border: 1px solid rgba(79,142,247,0.15); padding: 16px 20px; border-radius: 10px;
+  margin: 16px 0; font-size: 15px; color: var(--cyan); text-align: center;
+  overflow-x: auto;
+}
+
+/* ─── BOXES ─── */
+.box-insight {
+  background: rgba(79,142,247,0.07); border: 1px solid rgba(79,142,247,0.25);
+  border-radius: 12px; padding: 16px 20px; margin: 16px 0; font-size: 13.5px;
+}
+.box-insight .box-title { color: var(--blue); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+.box-shortcut {
+  background: rgba(255,209,102,0.07); border: 1px solid rgba(255,209,102,0.25);
+  border-radius: 12px; padding: 16px 20px; margin: 16px 0; font-size: 13.5px;
+}
+.box-shortcut .box-title { color: var(--yellow); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+.box-warning {
+  background: rgba(247,37,133,0.07); border: 1px solid rgba(247,37,133,0.25);
+  border-radius: 12px; padding: 16px 20px; margin: 16px 0; font-size: 13.5px;
+}
+.box-warning .box-title { color: var(--pink); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+.box-advanced {
+  background: rgba(155,93,229,0.07); border: 1px solid rgba(155,93,229,0.25);
+  border-radius: 12px; padding: 16px 20px; margin: 16px 0; font-size: 13.5px;
+}
+.box-advanced .box-title { color: var(--purple); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+/* ─── CONFUSED EXPANDABLE ─── */
+.confused-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.15);
+  padding: 8px 16px; border-radius: 8px; font-size: 12.5px; color: var(--text2);
+  cursor: pointer; transition: all 0.2s; margin: 12px 0;
+}
+.confused-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.confused-content { display: none; background: rgba(76,201,240,0.05); border: 1px solid rgba(76,201,240,0.2); border-radius: 10px; padding: 16px 20px; margin: 8px 0; font-size: 13.5px; color: var(--text2); }
+.confused-content.show { display: block; animation: fadeIn 0.3s ease; }
+
+/* ─── EXAMPLE CARDS ─── */
+.example-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 16px; overflow: hidden; margin-bottom: 28px; transition: all 0.3s;
+}
+.example-card:hover { border-color: rgba(79,142,247,0.3); }
+.example-header {
+  padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--card-border); background: rgba(255,255,255,0.02);
+}
+.example-title { font-weight: 700; font-size: 14px; }
+.diff-badge { font-size: 10px; font-family: 'Space Mono', monospace; padding: 3px 10px; border-radius: 4px; }
+.diff-easy { background: rgba(6,214,160,0.15); color: var(--green); }
+.diff-mod { background: rgba(255,209,102,0.15); color: var(--yellow); }
+.diff-jee-main { background: rgba(79,142,247,0.15); color: var(--blue); }
+.diff-jee-adv { background: rgba(247,37,133,0.15); color: var(--pink); }
+.example-body { padding: 24px; }
+.step { display: flex; gap: 14px; margin-bottom: 16px; }
+.step-num { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+.step-content { flex: 1; }
+.step-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-family: 'Space Mono', monospace; }
+
+/* ─── CANVAS SIMULATIONS ─── */
+.sim-container {
+  background: rgba(0,0,10,0.6); border: 1px solid var(--card-border);
+  border-radius: 16px; overflow: hidden; margin-bottom: 24px;
+}
+.sim-header { padding: 14px 20px; border-bottom: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; }
+.sim-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; }
+.sim-controls { padding: 14px 20px; border-top: 1px solid var(--card-border); display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.sim-label { font-size: 12px; color: var(--text3); }
+.sim-slider { -webkit-appearance: none; width: 120px; height: 3px; border-radius: 2px; background: var(--card-border); outline: none; }
+.sim-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--blue); cursor: pointer; }
+.sim-btn { background: rgba(79,142,247,0.15); border: 1px solid rgba(79,142,247,0.3); color: var(--blue); padding: 6px 14px; border-radius: 7px; font-size: 12px; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+.sim-btn:hover { background: rgba(79,142,247,0.25); }
+canvas { display: block; max-width: 100%; }
+
+/* ─── MEMORY TRICKS ─── */
+.mnemonic-card {
+  background: var(--card); border: 1px solid var(--card-border);
+  border-radius: 14px; padding: 24px; position: relative; overflow: hidden;
+  transition: all 0.3s;
+}
+.mnemonic-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink));
+}
+.mnemonic-card:hover { transform: translateY(-3px); box-shadow: var(--glow-purple); }
+.mnemonic-emoji { font-size: 36px; margin-bottom: 12px; }
+.mnemonic-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+.mnemonic-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.mnemonic-key { font-family: 'Space Mono', monospace; color: var(--cyan); }
+
+/* ─── PYQ ─── */
+.pyq-bar-wrap { background: rgba(255,255,255,0.04); border-radius: 6px; height: 8px; margin: 6px 0; overflow: hidden; }
+.pyq-bar { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--blue), var(--purple)); }
+.pyq-topic { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+.pyq-topic .name { color: var(--text); }
+.pyq-topic .pct { color: var(--cyan); font-family: 'Space Mono', monospace; font-size: 12px; }
+
+/* ─── CHECKLIST ─── */
+.checklist-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.checklist-item:last-child { border-bottom: none; }
+.check-box { width: 18px; height: 18px; border: 1.5px solid var(--text3); border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: all 0.2s; }
+.check-box.checked { background: var(--green); border-color: var(--green); }
+.check-text { font-size: 13.5px; color: var(--text2); }
+.checklist-item.checked .check-text { text-decoration: line-through; color: var(--text3); }
+
+/* ─── REVISION MODE ─── */
+.revision-panel { display: none; }
+.revision-panel.active { display: block; }
+
+/* ─── TAB SYSTEM ─── */
+.tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.tab-btn {
+  padding: 8px 18px; border-radius: 8px; font-size: 13px; cursor: pointer;
+  border: 1px solid var(--card-border); background: var(--card); color: var(--text2);
+  transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.tab-btn.active { background: linear-gradient(135deg, var(--blue), var(--purple)); border-color: transparent; color: white; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* ─── DIVIDER ─── */
+.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--card-border), transparent); margin: 40px 0; }
+
+/* ─── PROPS TABLE ─── */
+.props-table { width: 100%; border-collapse: collapse; }
+.props-table th { background: rgba(79,142,247,0.08); padding: 10px 16px; text-align: left; font-size: 12px; color: var(--blue); font-family: 'Space Mono', monospace; letter-spacing: 0.5px; }
+.props-table td { padding: 10px 16px; border-bottom: 1px solid var(--card-border); font-size: 13px; color: var(--text2); }
+.props-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ─── MOBILE HAMBURGER ─── */
+.hamburger { display: none; position: fixed; top: 16px; left: 16px; z-index: 1100; background: var(--card); border: 1px solid var(--card-border); border-radius: 8px; padding: 8px 10px; cursor: pointer; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.fade-in { animation: fadeInUp 0.5s ease both; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0; }
+  .section { padding: 60px 20px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .hamburger { display: flex; }
+  .hero { padding: 80px 20px; }
+}
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 28px; }
+  .hero-stats { gap: 20px; }
+  .sim-controls { flex-direction: column; }
+}
+
+/* Section dividers */
+.section-sep { height: 1px; background: radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 70%); margin: 0; }
+
+/* Highlight text */
+.hl-blue { color: var(--blue); font-weight: 600; }
+.hl-purple { color: var(--purple); font-weight: 600; }
+.hl-pink { color: var(--pink); font-weight: 600; }
+.hl-cyan { color: var(--cyan); font-weight: 600; }
+.hl-green { color: var(--green); font-weight: 600; }
+.hl-yellow { color: var(--yellow); font-weight: 600; }
+
+/* Bullet lists */
+.styled-list { list-style: none; margin: 12px 0; }
+.styled-list li { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; color: var(--text2); }
+.styled-list li::before { content: '→'; color: var(--blue); font-family: 'Space Mono', monospace; flex-shrink: 0; }
+
+/* Topic tag in header */
+.topic-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.topic-tag { font-size: 11px; padding: 4px 12px; border-radius: 100px; border: 1px solid; font-family: 'Space Mono', monospace; }
+.topic-tag.blue { border-color: rgba(79,142,247,0.4); color: var(--blue); background: rgba(79,142,247,0.08); }
+.topic-tag.purple { border-color: rgba(155,93,229,0.4); color: var(--purple); background: rgba(155,93,229,0.08); }
+.topic-tag.pink { border-color: rgba(247,37,133,0.4); color: var(--pink); background: rgba(247,37,133,0.08); }
+.topic-tag.green { border-color: rgba(6,214,160,0.4); color: var(--green); background: rgba(6,214,160,0.08); }
+
+/* sticky mini-progress */
+.sticky-prog {
+  position: fixed; bottom: 20px; right: 20px; z-index: 999;
+  background: rgba(10,10,31,0.9); backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border); border-radius: 14px;
+  padding: 12px 16px; width: 180px;
+}
+.sp-label { font-size: 11px; color: var(--text3); margin-bottom: 8px; display: flex; justify-content: space-between; }
+.sp-bar { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+.sp-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink)); border-radius: 2px; transition: width 0.5s; }
+.sp-topics { font-size: 11px; color: var(--cyan); font-family: 'Space Mono', monospace; }
+
+/* Important note style */
+.note-box {
+  background: rgba(76,201,240,0.06); border-left: 3px solid var(--cyan);
+  border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 14px 0; font-size: 13px; color: var(--text2);
+}
+.note-box strong { color: var(--cyan); }
+
+</style>
+</head>
+<body>
+
+<!-- Background orbs -->
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<!-- Hamburger -->
+<div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+<!-- Sticky progress -->
+<div class="sticky-prog">
+  <div class="sp-label"><span>Chapter Progress</span><span id="sp-pct">0%</span></div>
+  <div class="sp-bar"><div class="sp-fill" id="sp-fill" style="width:0%"></div></div>
+  <div class="sp-topics" id="sp-topics">0 / 12 topics done</div>
+</div>
+
+<!-- ═══ SIDEBAR ═══ -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <h2>⚡ ELECTROSTATICS</h2>
+    <p>JEE Advanced Mastery · Ch. 1</p>
+  </div>
+  <div class="progress-ring-wrap">
+    <div class="progress-label"><span>Chapter Progress</span><span id="nav-pct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="nav-fill" style="width:0%"></div></div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Navigation</div>
+    <a href="#hero" class="nav-item active" onclick="setActive(this)"><div class="nav-dot"></div>Home</a>
+    <a href="#roadmap" class="nav-item" onclick="setActive(this)"><div class="nav-dot"></div>Chapter Roadmap</a>
+    <a href="#concepts" class="nav-item" onclick="setActive(this)"><div class="nav-dot"></div>Concept Builder</a>
+    <a href="#simulations" class="nav-item" onclick="setActive(this)"><div class="nav-dot"></div>Interactive Sims</a>
+    <a href="#formulas" class="nav-item" onclick="setActive(this)"><div class="nav-dot"></div>Formula Mastery</a>
+    <a href="#examples" class="nav-item" onclick="setActive(this)"><div class="nav-dot"></div>Solved Examples</a>
+    <a href="#memory" class="nav-item" onclick="setActive(this)"><div class="nav-dot"></div>Memory Tricks</a>
+    <a href="#pyq" class="nav-item" onclick="setActive(this)"><div class="nav-dot"></div>PYQ Analysis</a>
+    <a href="#revision" class="nav-item" onclick="setActive(this)"><div class="nav-dot"></div>Revision Mode</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-section-title">Checklist</div>
+    <div style="padding: 0 12px 12px;" id="sidebar-checklist"></div>
+  </div>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<div id="main">
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="hero-badge">Cengage · NCERT · JEE Advanced 2025</div>
+  <h1>Electric Charges<br><span>&amp; Fields</span></h1>
+  <p>Your complete JEE mastery guide for Chapter 1 — from absolute basics to JEE Advanced problem-solving. Built from Cengage, theory to tricks.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">12</div><div class="lbl">Core Topics</div></div>
+    <div class="hero-stat"><div class="num">15+</div><div class="lbl">Solved Examples</div></div>
+    <div class="hero-stat"><div class="num">4</div><div class="lbl">Live Simulations</div></div>
+    <div class="hero-stat"><div class="num">∞</div><div class="lbl">JEE Readiness</div></div>
+  </div>
+  <div class="hero-cta">
+    <button class="btn-primary" onclick="document.getElementById('roadmap').scrollIntoView({behavior:'smooth'})">Start Learning →</button>
+    <button class="btn-secondary" onclick="document.getElementById('revision').scrollIntoView({behavior:'smooth'})">Quick Revision</button>
+  </div>
+  <div class="topic-tags" style="margin-top:32px; justify-content:center;">
+    <span class="topic-tag blue">Coulomb's Law</span>
+    <span class="topic-tag purple">Electric Field</span>
+    <span class="topic-tag pink">Electric Dipole</span>
+    <span class="topic-tag green">Superposition</span>
+    <span class="topic-tag blue">Field Lines</span>
+    <span class="topic-tag purple">Gauss's Law</span>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ─── ROADMAP ─── -->
+<section class="section" id="roadmap">
+  <div class="section-header">
+    <div class="section-tag">01</div>
+    <h2>Chapter <span>Roadmap</span></h2>
+    <p class="section-sub">Visual overview of all subtopics — click to mark as done, track your progress</p>
+  </div>
+  <div class="roadmap-grid" id="roadmap-grid"></div>
+  <div class="glass-card" style="margin-top:24px;">
+    <div style="display:flex; gap:24px; flex-wrap:wrap;">
+      <div><span class="math">Weeks 1–2</span> <span style="font-size:13px; color:var(--text2); margin-left:8px;">Charge properties, Coulomb's Law, Superposition</span></div>
+      <div><span class="math">Weeks 3–4</span> <span style="font-size:13px; color:var(--text2); margin-left:8px;">Electric Field, Field Lines, Continuous Distributions</span></div>
+      <div><span class="math">Week 5</span> <span style="font-size:13px; color:var(--text2); margin-left:8px;">Dipole, Motion in E-field, PYQ practice</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ─── CONCEPTS ─── -->
+<section class="section" id="concepts">
+  <div class="section-header">
+    <div class="section-tag">02</div>
+    <h2>Concept <span>Builder</span></h2>
+    <p class="section-sub">Every concept from scratch to JEE Advanced — click a topic to expand</p>
+  </div>
+
+  <!-- CONCEPT 1: Electric Charge -->
+  <div class="concept-card open" id="cc1">
+    <div class="concept-header" onclick="toggleConcept('cc1')">
+      <div class="concept-icon" style="background:rgba(79,142,247,0.15);">⚡</div>
+      <div class="concept-title">
+        <h3>Electric Charge — The Fundamental Property</h3>
+        <p>What is charge? Properties, quantization, conservation</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <p>Electric charge is the <span class="hl-blue">fundamental property of matter</span> that causes it to experience a force when placed in an electromagnetic field. There are two types: <span class="hl-blue">positive</span> (proton) and <span class="hl-pink">negative</span> (electron).</p>
+
+      <div class="box-insight">
+        <div class="box-title">🔵 Physical Intuition</div>
+        Think of charge like "electric identity." Just as mass creates gravitational attraction, charge creates electrostatic force. Unlike mass (always positive), charge can be positive or negative — opposites attract, likes repel.
+      </div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Properties of Charge</h4>
+
+      <table class="props-table" style="width:100%; margin-bottom:16px;">
+        <tr><th>Property</th><th>Statement</th><th>JEE Implication</th></tr>
+        <tr><td><span class="hl-blue">Transferable</span></td><td>Can be transferred from one body to another (electrons move, protons stay fixed)</td><td>Only electrons are mobile in solids</td></tr>
+        <tr><td><span class="hl-blue">Associated with mass</span></td><td>Charge cannot exist without mass; mass can exist without charge</td><td>Charging changes body's mass by m_e × n</td></tr>
+        <tr><td><span class="hl-blue">Conserved</span></td><td>Total charge in an isolated system is constant; charge cannot be created or destroyed</td><td>In pair production: e⁻ + e⁺ (net = 0)</td></tr>
+        <tr><td><span class="hl-blue">Quantized</span></td><td>Q = ±ne where e = 1.6 × 10⁻¹⁹ C, n = 1,2,3…</td><td>Fractional charges (quarks) don't appear in free state</td></tr>
+        <tr><td><span class="hl-blue">Invariant</span></td><td>Value of charge is independent of frame of reference (velocity)</td><td>Unlike mass, charge doesn't change with speed</td></tr>
+        <tr><td><span class="hl-blue">Additive</span></td><td>Total charge = algebraic sum (with signs) of all charges</td><td>Q_total = Q₁ + Q₂ + Q₃ + … (signed addition)</td></tr>
+      </table>
+
+      <div class="math-block">Quantization: Q = ±ne &nbsp;&nbsp; where e = 1.6 × 10⁻¹⁹ C</div>
+
+      <div class="box-shortcut">
+        <div class="box-title">⚡ JEE Shortcuts</div>
+        <ul class="styled-list">
+          <li>If body gains n electrons: charge = −ne (negative), mass increases by n×9.1×10⁻³¹ kg</li>
+          <li>If body loses n electrons: charge = +ne (positive), mass decreases</li>
+          <li>1 μC = 10⁻⁶ C, 1 nC = 10⁻⁹ C, 1 pC = 10⁻¹² C</li>
+          <li>SI unit of charge: Coulomb (C). CGS unit: stat coulomb (esu). Dimension: [AT]</li>
+        </ul>
+      </div>
+
+      <div class="box-warning">
+        <div class="box-title">⚠️ Common Mistakes</div>
+        <ul class="styled-list">
+          <li>Charge is scalar — never add charges as vectors! Q_total = algebraic sum</li>
+          <li>Charge of ±2/3e or ±1/3e (quarks) are not found in free state — never use them in problems</li>
+          <li>Conservation means net charge is constant, NOT that each individual charge is preserved</li>
+        </ul>
+      </div>
+
+      <div class="confused-btn" onclick="toggleConfused('conf1')">🤔 I'm Confused — Why can't charge be fractional?</div>
+      <div class="confused-content" id="conf1">
+        Quarks (inside protons and neutrons) do have charges like +2/3e and -1/3e. But quarks are <em>confined</em> — they can never exist as free particles. In all JEE problems, the minimum free charge is e = 1.6 × 10⁻¹⁹ C. So any macroscopic charge must be an integer multiple of e. This is the quantization of charge.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 2: Conductors & Insulators -->
+  <div class="concept-card" id="cc2">
+    <div class="concept-header" onclick="toggleConcept('cc2')">
+      <div class="concept-icon" style="background:rgba(76,201,240,0.15);">🔌</div>
+      <div class="concept-title">
+        <h3>Conductors, Insulators & Charging Methods</h3>
+        <p>How charge flows, and how to charge a body</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <div class="grid-2" style="gap:16px; margin-bottom:20px;">
+        <div class="glass-card" style="padding:18px;">
+          <h4 style="color:var(--blue); margin-bottom:10px; font-size:14px;">🔵 Conductors</h4>
+          <p style="font-size:13px; color:var(--text2);">Valence electrons loosely bound → free to move. Examples: metals (Cu, Al, Au), human body, Earth, salt water</p>
+          <div style="margin-top:10px; font-size:12px; color:var(--text3);">Key: Charge resides on SURFACE of conductor</div>
+        </div>
+        <div class="glass-card" style="padding:18px;">
+          <h4 style="color:var(--pink); margin-bottom:10px; font-size:14px;">🔴 Insulators</h4>
+          <p style="font-size:13px; color:var(--text2);">Electrons tightly bound → cannot move freely. Examples: glass, wood, rubber, plastic, dry air, mica</p>
+          <div style="margin-top:10px; font-size:12px; color:var(--text3);">Key: Charge stays where placed (no spreading)</div>
+        </div>
+      </div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Three Methods of Charging</h4>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'tab-friction')">Friction</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-conduction')">Conduction</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-induction')">Induction</button>
+      </div>
+
+      <div class="tab-pane active" id="tab-friction">
+        <div class="box-insight">
+          <div class="box-title">🔵 Charging by Friction (Triboelectric Effect)</div>
+          When two bodies are rubbed together, electrons transfer from one to the other. The body that <em>loses</em> electrons becomes positive, the body that <em>gains</em> electrons becomes negative.
+        </div>
+        <p style="font-size:13.5px; color:var(--text2);">Examples: Glass rod rubbed with silk (glass becomes +, silk becomes −). Ebonite rod with fur (ebonite becomes −, fur becomes +).</p>
+        <div class="box-warning">
+          <div class="box-title">⚠️ Key Points</div>
+          Both bodies charge equally and oppositely. Total charge remains zero (conservation). A metallic rod held in hand CANNOT be charged by friction (charge flows to earth through hand).
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tab-conduction">
+        <div class="box-insight">
+          <div class="box-title">🔵 Charging by Conduction (Contact)</div>
+          A charged conductor touches an uncharged conductor. Charge distributes between them. Both conductors end up with the <em>same sign</em> of charge.
+        </div>
+        <p style="font-size:13.5px; color:var(--text2);">Distribution depends on capacitance. For identical spheres: charge splits equally. Q_each = Q_total / 2.</p>
+        <div class="box-shortcut">
+          <div class="box-title">⚡ JEE Trick</div>
+          Two identical spheres in contact: Q₁' = Q₂' = (Q₁ + Q₂)/2. If Q₁ = +6μC, Q₂ = −2μC → each gets +2μC after contact.
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tab-induction">
+        <div class="box-insight">
+          <div class="box-title">🔵 Charging by Induction</div>
+          A charged body brought near a neutral body induces opposite charge on near side, same sign on far side. No contact needed. Charged body does NOT lose charge.
+        </div>
+        <div style="font-size:13.5px; color:var(--text2);">
+          <strong>Steps for charging sphere by induction:</strong>
+          <ol style="margin:10px 0 0 20px; line-height:2;">
+            <li>Bring positive rod near (but not touching) sphere → near face becomes −, far face becomes +</li>
+            <li>Earth the sphere (connect to ground) → + charges flow to earth, sphere now has only − charges</li>
+            <li>Remove earthing wire first, then remove rod → sphere permanently −charged</li>
+          </ol>
+        </div>
+        <div class="box-warning">
+          <div class="box-title">⚠️ Critical: Order Matters!</div>
+          Always remove earthing BEFORE removing the inducing rod. If you remove rod first, charges redistribute and sphere becomes neutral again.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 3: Coulomb's Law -->
+  <div class="concept-card" id="cc3">
+    <div class="concept-header" onclick="toggleConcept('cc3')">
+      <div class="concept-icon" style="background:rgba(155,93,229,0.15);">🔮</div>
+      <div class="concept-title">
+        <h3>Coulomb's Law — The Foundation</h3>
+        <p>Force between charges, vector form, superposition</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <p>The electrostatic force between two <span class="hl-blue">stationary point charges</span> is directly proportional to the product of charges and inversely proportional to the square of distance between them.</p>
+
+      <div class="math-block">
+        F = k<sub>e</sub> · (q₁q₂) / r²&nbsp;&nbsp;&nbsp;&nbsp;where k<sub>e</sub> = 1/4πε₀ = 9 × 10⁹ N·m²·C⁻²
+      </div>
+
+      <div class="math-block">
+        ε₀ = 8.85 × 10⁻¹² C²·N⁻¹·m⁻²&nbsp;&nbsp;(permittivity of free space)
+      </div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Vector Form (JEE Advanced critical)</h4>
+      <p style="font-size:13.5px; color:var(--text2); margin-bottom:12px;">Force on charge 1 due to charge 2 (in vector notation):</p>
+      <div class="math-block">F⃗₁₂ = (1/4πε₀) · (q₁q₂/r²) · r̂₁₂</div>
+      <p style="font-size:13px; color:var(--text2);">where r̂₁₂ is the unit vector from charge 2 → charge 1. Newton's 3rd law: F⃗₁₂ = −F⃗₂₁</p>
+
+      <div class="math-block">
+        F⃗₂₁ = (q₁q₂ / 4πε₀) · (r⃗₂ − r⃗₁) / |r⃗₂ − r⃗₁|³
+      </div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Coulomb vs Gravitation — Key Comparisons</h4>
+      <table class="props-table">
+        <tr><th>Feature</th><th>Coulomb's Law</th><th>Newton's Gravity</th></tr>
+        <tr><td>Force type</td><td>Attractive OR repulsive</td><td>Always attractive</td></tr>
+        <tr><td>Property</td><td>Charge (±)</td><td>Mass (always +)</td></tr>
+        <tr><td>Medium dependence</td><td>Yes (ε changes)</td><td>No (G universal)</td></tr>
+        <tr><td>Relative strength</td><td>~10³⁶ times stronger than gravity</td><td>Weakest force</td></tr>
+        <tr><td>Common features</td><td colspan="2">Inverse square law, central force, conservative, action-reaction pair, acts along line joining charges/masses</td></tr>
+      </table>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">In a Medium (Dielectric)</h4>
+      <div class="math-block">F_medium = (1/4πε₀ε_r) · (q₁q₂/r²) = F_vacuum / ε_r</div>
+      <p style="font-size:13.5px; color:var(--text2);">ε_r = relative permittivity (dielectric constant). For water: ε_r ≈ 80. For vacuum/air: ε_r = 1.</p>
+
+      <div class="box-shortcut">
+        <div class="box-title">⚡ JEE Power Tip</div>
+        <ul class="styled-list">
+          <li>Coulomb force is valid only for point charges or uniformly charged spheres (treat as point charge)</li>
+          <li>NOT valid for distances less than 10⁻¹⁵ m (nuclear scale)</li>
+          <li>The force between two charges is independent of the presence of other charges (superposition)</li>
+          <li>Electrostatic force is 10³⁶ times stronger than gravitational force</li>
+        </ul>
+      </div>
+
+      <div class="box-warning">
+        <div class="box-title">⚠️ Common Traps in JEE</div>
+        <ul class="styled-list">
+          <li>Force is ALWAYS along the line joining the charges (central force)</li>
+          <li>Sign of force tells attraction/repulsion; use magnitude for calculations unless asked for vector</li>
+          <li>Coulomb's law fails for moving charges (need Lorentz force)</li>
+        </ul>
+      </div>
+
+      <div class="confused-btn" onclick="toggleConfused('conf3')">🤔 I'm Confused — What exactly is ε₀ and why does it appear?</div>
+      <div class="confused-content" id="conf3">
+        ε₀ (epsilon-naught) is the permittivity of free space. It tells you how strongly the vacuum "allows" electric fields to form. A lower ε₀ would mean stronger electric forces for the same charge. The formula k = 1/4πε₀ appears because we're using SI units. In CGS, k simply equals 1. The 4π comes from solid angles in Gauss's law (makes other formulas cleaner).
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 4: Superposition -->
+  <div class="concept-card" id="cc4">
+    <div class="concept-header" onclick="toggleConcept('cc4')">
+      <div class="concept-icon" style="background:rgba(247,37,133,0.15);">➕</div>
+      <div class="concept-title">
+        <h3>Superposition Principle</h3>
+        <p>Net force due to multiple charges — vector addition strategy</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <p>The net electrostatic force on a charge due to a system of charges is the <span class="hl-blue">vector sum</span> of the individual forces exerted by each charge independently.</p>
+
+      <div class="math-block">F⃗_net = F⃗₁ + F⃗₂ + F⃗₃ + ... = Σᵢ F⃗ᵢ</div>
+
+      <div class="box-insight">
+        <div class="box-title">🔵 Key Insight</div>
+        The presence of other charges does NOT affect the force between any two charges. Each pairwise force is computed independently, then all are added vectorially. This is the power of superposition.
+      </div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Strategy for Multi-Charge Problems</h4>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-label">Identify</div>
+          List all charges and find the force on the target charge due to each other charge separately.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-label">Calculate magnitude</div>
+          Use F = kq₁q₂/r² for each pair. Determine direction using sign of charges.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-label">Resolve into components</div>
+          Break each force into x and y components. Sum all x-components and all y-components.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-label">Find resultant</div>
+          F_net = √(Fx² + Fy²), angle θ = tan⁻¹(Fy/Fx)
+        </div>
+      </div>
+
+      <div class="box-shortcut">
+        <div class="box-title">⚡ Symmetry Shortcuts (JEE Favorites)</div>
+        <ul class="styled-list">
+          <li><strong>Equilateral triangle:</strong> Three equal charges at vertices → force on each is √3 × kq²/l² at 30° from each side</li>
+          <li><strong>Square:</strong> Equal charges at 4 corners → force on each charge at corner has specific direction (use symmetry)</li>
+          <li><strong>Centroid of equilateral triangle:</strong> If 3 equal charges at vertices, net force on a charge at centroid = 0 (use symmetry without calculating)</li>
+          <li><strong>Equilibrium condition:</strong> A charge is in equilibrium when net force = 0. For 3 collinear charges, the middle charge is always in equilibrium if the outer charges are same sign.</li>
+        </ul>
+      </div>
+
+      <div class="note-box">
+        <strong>JEE Trick:</strong> If n equal charges are placed at corners of a regular polygon, the net force on any one charge due to all others can be found by using symmetry — often it simplifies to zero or a specific direction.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 5: Electric Field -->
+  <div class="concept-card" id="cc5">
+    <div class="concept-header" onclick="toggleConcept('cc5')">
+      <div class="concept-icon" style="background:rgba(6,214,160,0.15);">🌐</div>
+      <div class="concept-title">
+        <h3>Electric Field — The Field Concept</h3>
+        <p>Definition, point charge field, field due to multiple charges</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <p>Electric field at a point is the <span class="hl-green">force per unit positive test charge</span> placed at that point (test charge should be small enough not to disturb the source).</p>
+
+      <div class="math-block">E⃗ = F⃗/q₀&nbsp;&nbsp;&nbsp;&nbsp; |E| = kq/r² = q/(4πε₀r²)</div>
+      <p style="text-align:center; font-size:12px; color:var(--text3); margin-top:-8px;">SI unit: N/C or V/m &nbsp;|&nbsp; Dimension: [MLT⁻³A⁻¹]</p>
+
+      <div class="box-insight">
+        <div class="box-title">🔵 Why do we need the field concept?</div>
+        Instead of computing force every time (which requires knowing both charges), we pre-calculate the field due to the source charge. Any other charge placed there just multiplies: F = qE. This is hugely powerful for continuous charge distributions.
+      </div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Electric Field Due to a Point Charge</h4>
+      <div class="math-block">E⃗ = (1/4πε₀) · (q/r²) · r̂</div>
+      <ul class="styled-list">
+        <li>For <span class="hl-blue">positive charge</span>: E points radially outward (away from charge)</li>
+        <li>For <span class="hl-pink">negative charge</span>: E points radially inward (toward the charge)</li>
+        <li>E is a vector quantity — direction matters!</li>
+      </ul>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Field Due to a Group of Charges (Superposition)</h4>
+      <div class="math-block">E⃗_net = E⃗₁ + E⃗₂ + E⃗₃ + ... = (1/4πε₀) Σᵢ (qᵢ/rᵢ²) r̂ᵢ</div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Important Electric Field Results (Must Memorize)</h4>
+      <table class="props-table">
+        <tr><th>Configuration</th><th>Location</th><th>Electric Field</th></tr>
+        <tr><td>Point charge q</td><td>At distance r</td><td class="math">E = kq/r²</td></tr>
+        <tr><td>Infinite line charge (λ C/m)</td><td>At distance r</td><td class="math">E = λ/(2πε₀r)</td></tr>
+        <tr><td>Infinite plane sheet (σ C/m²)</td><td>Any point near it</td><td class="math">E = σ/(2ε₀)</td></tr>
+        <tr><td>Two parallel sheets (±σ)</td><td>Between plates</td><td class="math">E = σ/ε₀</td></tr>
+        <tr><td>Uniformly charged ring (R, Q)</td><td>On axis at x</td><td class="math">E = kQx/(x²+R²)^(3/2)</td></tr>
+        <tr><td>Ring maximum field</td><td>at x = R/√2</td><td class="math">E_max = kQ/(3^(3/2)·R²/2)</td></tr>
+        <tr><td>Conducting sphere (Q, R)</td><td>r > R (outside)</td><td class="math">E = kQ/r²</td></tr>
+        <tr><td>Conducting sphere</td><td>r = R (surface)</td><td class="math">E = kQ/R² = σ/ε₀</td></tr>
+        <tr><td>Conducting sphere</td><td>r &lt; R (inside)</td><td class="math">E = 0</td></tr>
+      </table>
+
+      <div class="box-shortcut">
+        <div class="box-title">⚡ Ring Field — JEE Advanced Favorite</div>
+        For ring of radius R, charge Q on axis at distance x:
+        <div class="math-block" style="margin:10px 0;">E = kQx / (x² + R²)^(3/2)</div>
+        <ul class="styled-list">
+          <li>At x = 0 (center of ring): E = 0</li>
+          <li>At x = R/√2: E is maximum</li>
+          <li>At x >> R: E ≈ kQ/x² (looks like point charge)</li>
+          <li>Differentiate and set dE/dx = 0 to find maximum position</li>
+        </ul>
+      </div>
+
+      <div class="confused-btn" onclick="toggleConfused('conf5')">🤔 I'm Confused — Why is E = 0 inside a conductor?</div>
+      <div class="confused-content" id="conf5">
+        If E ≠ 0 inside a conductor, free electrons would experience a force and keep moving — but in electrostatic equilibrium, electrons have stopped moving. So E must be zero inside. Any net charge on a conductor resides entirely on its surface. This is also why Faraday cages work!
+      </div>
+
+      <div class="box-advanced">
+        <div class="box-title">🔬 Advanced Insight — Field due to Disk</div>
+        For a uniformly charged disk of radius R, surface charge density σ:
+        <div class="math-block">E = (σ/2ε₀)[1 − x/√(x² + R²)]</div>
+        <ul class="styled-list">
+          <li>As R → ∞ (infinite plane): E = σ/2ε₀</li>
+          <li>As R → 0 (point charge): recovers E = kQ/x²</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 6: Field Lines -->
+  <div class="concept-card" id="cc6">
+    <div class="concept-header" onclick="toggleConcept('cc6')">
+      <div class="concept-icon" style="background:rgba(255,209,102,0.15);">〰️</div>
+      <div class="concept-title">
+        <h3>Electric Field Lines</h3>
+        <p>Properties, patterns, and what they tell us</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <p>Electric field lines are imaginary curves whose <span class="hl-yellow">tangent at any point gives the direction of electric field</span> at that point. They were introduced by Faraday.</p>
+
+      <h4 style="margin:16px 0 12px; font-family:'Syne',sans-serif;">12 Key Properties — All JEE-Tested</h4>
+      <ul class="styled-list">
+        <li>Field lines start from positive charges and end on negative charges (or go to infinity)</li>
+        <li>They <span class="hl-blue">never intersect</span> each other (E cannot have two directions at one point)</li>
+        <li>They are <span class="hl-blue">not real</span> — imaginary construct, but useful visualization</li>
+        <li>Number of lines ∝ magnitude of charge (more charge → more lines)</li>
+        <li>Denser lines → stronger field. Uniform spacing → uniform field</li>
+        <li>Field lines are <span class="hl-blue">always perpendicular</span> to the surface of a conductor</li>
+        <li>No field lines exist inside a conductor (E = 0 inside)</li>
+        <li>Field lines do NOT form closed loops in electrostatics (only in magnetism)</li>
+        <li>They tend to contract longitudinally (like rubber bands — charges attract)</li>
+        <li>They tend to expand transversely (like repelling rubber bands — like charges repel)</li>
+        <li>The field at a point is tangent to the field line, not along the curved path</li>
+        <li>Two field lines can never be parallel at the same point in space</li>
+      </ul>
+
+      <div class="box-warning">
+        <div class="box-title">⚠️ Field Line Myths — JEE Trap</div>
+        <ul class="styled-list">
+          <li>A charge does NOT move along a field line (only if starting from rest with no other forces)</li>
+          <li>Field lines are continuous only in empty space — they may start/end on charges</li>
+          <li>In a uniform field, field lines are straight parallel lines with equal spacing</li>
+        </ul>
+      </div>
+
+      <div class="box-shortcut">
+        <div class="box-title">⚡ Pattern Memory Aid</div>
+        <ul class="styled-list">
+          <li><strong>Single +q:</strong> Lines radiate outward uniformly in all directions</li>
+          <li><strong>Single −q:</strong> Lines come inward uniformly from all directions</li>
+          <li><strong>+q and −q (dipole):</strong> Lines go from + to −, curving around</li>
+          <li><strong>Two +q:</strong> Lines repel, neutral point exists between them</li>
+          <li><strong>Parallel plates:</strong> Uniform straight lines between plates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 7: Electric Dipole -->
+  <div class="concept-card" id="cc7">
+    <div class="concept-header" onclick="toggleConcept('cc7')">
+      <div class="concept-icon" style="background:rgba(247,37,133,0.15);">⚖️</div>
+      <div class="concept-title">
+        <h3>Electric Dipole</h3>
+        <p>Dipole moment, field on axial/equatorial, torque, potential energy</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <p>A system of two equal and opposite charges +q and −q separated by a small distance 2l. The <span class="hl-pink">dipole moment</span> is:</p>
+
+      <div class="math-block">p⃗ = q × 2l &nbsp;&nbsp; Direction: from −q to +q</div>
+      <p style="font-size:12px; color:var(--text3); text-align:center; margin-top:-8px;">SI unit: C·m &nbsp;|&nbsp; Dimension: [M⁰L¹T¹A¹]</p>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Electric Field Due to a Dipole</h4>
+
+      <div class="grid-2" style="gap:16px; margin-bottom:20px;">
+        <div class="glass-card" style="padding:18px;">
+          <h4 style="color:var(--blue); font-size:13px; margin-bottom:10px;">📍 On Axial Line (End-on position)</h4>
+          <div style="font-family:'Space Mono',monospace; color:var(--cyan); font-size:14px; margin-bottom:10px;">E_ax = 2kp / (r²−l²)²<br><span style="font-size:12px; color:var(--text3);">For short dipole (r>>l):</span><br>E_ax = 2kp/r³</div>
+          <p style="font-size:12px; color:var(--text2);">Direction: along p⃗ (same as dipole moment direction)</p>
+        </div>
+        <div class="glass-card" style="padding:18px;">
+          <h4 style="color:var(--purple); font-size:13px; margin-bottom:10px;">📍 On Equatorial Line (Broadside position)</h4>
+          <div style="font-family:'Space Mono',monospace; color:var(--cyan); font-size:14px; margin-bottom:10px;">E_eq = kp / (r²+l²)^(3/2)<br><span style="font-size:12px; color:var(--text3);">For short dipole (r>>l):</span><br>E_eq = kp/r³</div>
+          <p style="font-size:12px; color:var(--text2);">Direction: antiparallel to p⃗ (opposite to dipole moment)</p>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <strong>Key ratio:</strong> E_axial / E_equatorial = 2 (at same distance from center, for short dipole)
+      </div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Field at General Point (Short Dipole)</h4>
+      <div class="math-block">E = (kp/r³)√(1 + 3cos²θ)</div>
+      <div class="math-block">tan α = (tan θ)/2 &nbsp;&nbsp; (α is angle of E with radial direction)</div>
+
+      <h4 style="margin:20px 0 12px; font-family:'Syne',sans-serif;">Dipole in Uniform Electric Field</h4>
+      <ul class="styled-list">
+        <li><strong>Torque:</strong> τ⃗ = p⃗ × E⃗ &nbsp;→&nbsp; |τ| = pE sinθ (θ is angle between p⃗ and E⃗)</li>
+        <li><strong>Potential Energy:</strong> U = −p⃗·E⃗ = −pE cosθ</li>
+        <li><strong>Stable equilibrium:</strong> θ = 0° (p⃗ parallel to E⃗), U = −pE (minimum)</li>
+        <li><strong>Unstable equilibrium:</strong> θ = 180°, U = +pE (maximum)</li>
+        <li><strong>Net force = 0</strong> in uniform field (equal and opposite forces on ±q)</li>
+      </ul>
+
+      <div class="box-shortcut">
+        <div class="box-title">⚡ Dipole Oscillation (JEE Advanced)</div>
+        If a dipole is displaced by small angle from stable equilibrium in a uniform field:
+        <div class="math-block">Time period T = 2π√(I/pE) &nbsp;&nbsp; (like SHM)</div>
+        where I = moment of inertia of dipole about its center. This is exactly like a bar magnet oscillating in a magnetic field!
+      </div>
+
+      <div class="box-advanced">
+        <div class="box-title">🔬 Dipole in Non-Uniform Field</div>
+        <ul class="styled-list">
+          <li>Net force ≠ 0 (because field is different at the two charges)</li>
+          <li>Force = p × (dE/dx) for 1D case</li>
+          <li>Dipole will also experience torque + translation</li>
+          <li>A dipole is attracted toward regions of stronger field</li>
+        </ul>
+      </div>
+
+      <div class="confused-btn" onclick="toggleConfused('conf7')">🤔 I'm Confused — Why is equatorial field antiparallel to p⃗?</div>
+      <div class="confused-content" id="conf7">
+        Place dipole with + charge at right and − charge at left. On the equatorial line (perpendicular bisector): the field from +q points away from +q (toward the equatorial point), and field from −q points toward −q (also toward the equatorial point... which is toward −q, i.e., toward the left). The resultant points in the same direction as the field from −q, which is opposite to p⃗ (since p⃗ points from − to +, i.e., to the right). So E_equatorial is antiparallel to p⃗.
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 8: Motion in E-field -->
+  <div class="concept-card" id="cc8">
+    <div class="concept-header" onclick="toggleConcept('cc8')">
+      <div class="concept-icon" style="background:rgba(76,201,240,0.15);">🚀</div>
+      <div class="concept-title">
+        <h3>Motion of Charged Particle in Electric Field</h3>
+        <p>Acceleration, projectile-like motion, uniform field dynamics</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <p>A charge q of mass m in a uniform electric field E experiences force F = qE. By Newton's 2nd law:</p>
+
+      <div class="math-block">a = qE/m &nbsp;&nbsp;&nbsp;&nbsp; (acceleration, constant in uniform field)</div>
+
+      <h4 style="margin:16px 0 12px; font-family:'Syne',sans-serif;">Analogy with Projectile Motion</h4>
+      <p style="color:var(--text2); font-size:13.5px;">A particle entering a uniform field horizontally is exactly like projectile motion:</p>
+      <table class="props-table">
+        <tr><th>Quantity</th><th>Projectile (gravity)</th><th>Charged particle in E-field</th></tr>
+        <tr><td>Horizontal velocity</td><td>v₀ = const</td><td>v₀ = const</td></tr>
+        <tr><td>Vertical acceleration</td><td>g downward</td><td>a = qE/m (direction depends on sign)</td></tr>
+        <tr><td>Vertical displacement</td><td>y = ½gt²</td><td>y = ½(qE/m)t²</td></tr>
+        <tr><td>Trajectory</td><td>Parabola</td><td>Parabola</td></tr>
+      </table>
+
+      <div class="box-shortcut">
+        <div class="box-title">⚡ Key Results</div>
+        <ul class="styled-list">
+          <li>Time to cross plates of length L: t = L/v₀</li>
+          <li>Vertical deflection while in field: y = (qEL²)/(2mv₀²)</li>
+          <li>For particle to be in equilibrium: qE = mg → E = mg/q (electric force balances gravity)</li>
+          <li>For an electron in E field: a = eE/m_e ≈ very large (because m_e is tiny)</li>
+        </ul>
+      </div>
+
+      <div class="box-warning">
+        <div class="box-title">⚠️ Direction of acceleration</div>
+        For positive charge: acceleration is in direction of E. For negative charge (electron): acceleration is OPPOSITE to E. Always check the sign!
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 9: Continuous Charge Distributions -->
+  <div class="concept-card" id="cc9">
+    <div class="concept-header" onclick="toggleConcept('cc9')">
+      <div class="concept-icon" style="background:rgba(79,142,247,0.15);">∫</div>
+      <div class="concept-title">
+        <h3>Continuous Charge Distributions</h3>
+        <p>Linear, surface, volume charge density — integration approach</p>
+      </div>
+      <div class="concept-chevron">▾</div>
+    </div>
+    <div class="concept-body">
+      <h4 style="margin:0 0 16px; font-family:'Syne',sans-serif;">Types of Charge Distribution</h4>
+      <div class="grid-3" style="gap:12px; margin-bottom:20px;">
+        <div class="glass-card" style="padding:16px;">
+          <div style="color:var(--blue); font-size:13px; font-weight:700; margin-bottom:6px;">Linear (λ)</div>
+          <div class="math-block" style="margin:0;">dq = λ dl</div>
+          <div style="font-size:12px; color:var(--text3); margin-top:8px;">Unit: C/m<br>Example: wire, ring</div>
+        </div>
+        <div class="glass-card" style="padding:16px;">
+          <div style="color:var(--purple); font-size:13px; font-weight:700; margin-bottom:6px;">Surface (σ)</div>
+          <div class="math-block" style="margin:0;">dq = σ dA</div>
+          <div style="font-size:12px; color:var(--text3); margin-top:8px;">Unit: C/m²<br>Example: disk, plane</div>
+        </div>
+        <div class="glass-card" style="padding:16px;">
+          <div style="color:var(--pink); font-size:13px; font-weight:700; margin-bottom:6px;">Volume (ρ)</div>
+          <div class="math-block" style="margin:0;">dq = ρ dV</div>
+          <div style="font-size:12px; color:var(--text3); margin-top:8px;">Unit: C/m³<br>Example: sphere</div>
+        </div>
+      </div>
+
+      <h4 style="margin:16px 0 12px; font-family:'Syne',sans-serif;">General Integration Approach</h4>
+      <div class="math-block">dE⃗ = (1/4πε₀) · (dq/r²) · r̂ &nbsp;&nbsp;→&nbsp;&nbsp; E⃗ = ∫ dE⃗</div>
+
+      <div class="box-shortcut">
+        <div class="box-title">⚡ Strategy for Integration Problems</div>
+        <ol style="padding-left:20px; line-height:2; color:var(--text2); font-size:13.5px;">
+          <li>Choose a small element dq at position with its field dE pointing in some direction</li>
+          <li>By symmetry, identify which component of dE cancels out (usually perpendicular components cancel)</li>
+          <li>Integrate only the surviving component</li>
+          <li>Substitute limits carefully</li>
+        </ol>
+      </div>
+
+      <div class="note-box">
+        <strong>Ring trick:</strong> For a uniformly charged ring on its axis, the perpendicular components of dE from diametrically opposite elements cancel. Only axial component survives, giving E = kQx/(x²+R²)^(3/2).
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ─── SIMULATIONS ─── -->
+<section class="section" id="simulations">
+  <div class="section-header">
+    <div class="section-tag">03</div>
+    <h2>Interactive <span>Simulations</span></h2>
+    <p class="section-sub">Drag charges, change parameters, observe physics live</p>
+  </div>
+
+  <!-- SIM 1: Coulomb's Law -->
+  <div class="sim-container">
+    <div class="sim-header">
+      <div class="sim-title">⚡ Coulomb's Law — Force Visualizer</div>
+      <div style="font-size:12px; color:var(--text3);">Drag charges to move them</div>
+    </div>
+    <canvas id="coulombCanvas" width="740" height="320" style="width:100%; max-height:320px;"></canvas>
+    <div class="sim-controls">
+      <span class="sim-label">q₁:</span>
+      <input type="range" class="sim-slider" id="q1Slider" min="-5" max="5" value="2" step="0.5">
+      <span id="q1Val" style="color:var(--cyan); font-size:12px; font-family:'Space Mono',monospace; min-width:40px;">+2μC</span>
+      <span class="sim-label">q₂:</span>
+      <input type="range" class="sim-slider" id="q2Slider" min="-5" max="5" value="-3" step="0.5">
+      <span id="q2Val" style="color:var(--cyan); font-size:12px; font-family:'Space Mono',monospace; min-width:40px;">-3μC</span>
+      <span id="forceDisplay" style="color:var(--yellow); font-size:12px; font-family:'Space Mono',monospace; margin-left:auto;"></span>
+    </div>
+  </div>
+
+  <!-- SIM 2: Electric Field Lines -->
+  <div class="sim-container">
+    <div class="sim-header">
+      <div class="sim-title">🌐 Electric Field Line Generator</div>
+      <div style="font-size:12px; color:var(--text3);">Click canvas to add charges</div>
+    </div>
+    <canvas id="fieldCanvas" width="740" height="360" style="width:100%; max-height:360px;"></canvas>
+    <div class="sim-controls">
+      <button class="sim-btn" onclick="addPositiveCharge()">+ Add +q</button>
+      <button class="sim-btn" onclick="addNegativeCharge()">+ Add −q</button>
+      <button class="sim-btn" onclick="clearFieldCharges()">🗑 Clear All</button>
+      <button class="sim-btn" onclick="presetDipole()">Dipole Preset</button>
+      <button class="sim-btn" onclick="presetLikeCharges()">Like Charges Preset</button>
+    </div>
+  </div>
+
+  <!-- SIM 3: Dipole in Field -->
+  <div class="sim-container">
+    <div class="sim-header">
+      <div class="sim-title">⚖️ Electric Dipole in Uniform Field</div>
+      <div style="font-size:12px; color:var(--text3);">Observe torque and oscillation</div>
+    </div>
+    <canvas id="dipoleCanvas" width="740" height="320" style="width:100%; max-height:320px;"></canvas>
+    <div class="sim-controls">
+      <span class="sim-label">Field E:</span>
+      <input type="range" class="sim-slider" id="eFieldSlider" min="1" max="10" value="5" step="0.5">
+      <span id="eFieldVal" style="color:var(--cyan); font-size:12px; font-family:'Space Mono',monospace; min-width:50px;">5 kN/C</span>
+      <span class="sim-label">Initial θ:</span>
+      <input type="range" class="sim-slider" id="angleSlider" min="0" max="170" value="45" step="5">
+      <span id="angleVal" style="color:var(--cyan); font-size:12px; font-family:'Space Mono',monospace; min-width:40px;">45°</span>
+      <button class="sim-btn" onclick="toggleDipoleAnim()">▶ Animate</button>
+      <span id="torqueDisplay" style="color:var(--yellow); font-size:12px; font-family:'Space Mono',monospace; margin-left:auto;"></span>
+    </div>
+  </div>
+
+  <!-- SIM 4: Superposition Demo -->
+  <div class="sim-container">
+    <div class="sim-header">
+      <div class="sim-title">➕ Superposition Principle — Net Field at a Point</div>
+      <div style="font-size:12px; color:var(--text3);">See how multiple charges create net field</div>
+    </div>
+    <canvas id="superCanvas" width="740" height="300" style="width:100%; max-height:300px;"></canvas>
+    <div class="sim-controls">
+      <button class="sim-btn" onclick="superPreset('triangle')">Equilateral Triangle</button>
+      <button class="sim-btn" onclick="superPreset('square')">Square Config</button>
+      <button class="sim-btn" onclick="superPreset('line')">Collinear Charges</button>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ─── FORMULAS ─── -->
+<section class="section" id="formulas">
+  <div class="section-header">
+    <div class="section-tag">04</div>
+    <h2>Formula <span>Mastery</span></h2>
+    <p class="section-sub">Every formula with meaning, trick, and JEE trap</p>
+  </div>
+  <div class="grid-2" id="formula-grid"></div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ─── SOLVED EXAMPLES ─── -->
+<section class="section" id="examples">
+  <div class="section-header">
+    <div class="section-tag">05</div>
+    <h2>Solved <span>Examples</span></h2>
+    <p class="section-sub">JEE-level problems with thinking process and shortcuts</p>
+  </div>
+  <div id="examples-container"></div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ─── MEMORY TRICKS ─── -->
+<section class="section" id="memory">
+  <div class="section-header">
+    <div class="section-tag">07</div>
+    <h2>Memory <span>Tricks</span></h2>
+    <p class="section-sub">Mnemonics, intuition hacks, and never-forget methods</p>
+  </div>
+  <div class="grid-3" id="memory-grid"></div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ─── PYQ ANALYSIS ─── -->
+<section class="section" id="pyq">
+  <div class="section-header">
+    <div class="section-tag">08</div>
+    <h2>PYQ Pattern <span>Analysis</span></h2>
+    <p class="section-sub">What JEE actually asks — frequency, patterns, high-priority topics</p>
+  </div>
+
+  <div class="grid-2" style="gap:24px; margin-bottom:32px;">
+    <div class="glass-card">
+      <h3 style="font-family:'Syne',sans-serif; margin-bottom:20px; font-size:17px;">📊 Topic Frequency in JEE</h3>
+      <div id="pyq-bars"></div>
+    </div>
+    <div class="glass-card">
+      <h3 style="font-family:'Syne',sans-serif; margin-bottom:20px; font-size:17px;">🎯 High-Priority Subtopics</h3>
+      <div id="pyq-priority"></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="gap:24px;">
+    <div class="glass-card">
+      <h3 style="font-family:'Syne',sans-serif; margin-bottom:16px; font-size:17px;">⚡ Fast-Solving Strategies</h3>
+      <ul class="styled-list" id="fast-strategies"></ul>
+    </div>
+    <div class="glass-card">
+      <h3 style="font-family:'Syne',sans-serif; margin-bottom:16px; font-size:17px;">📌 JEE Advanced Patterns</h3>
+      <ul class="styled-list" id="adv-patterns"></ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ─── REVISION MODE ─── -->
+<section class="section" id="revision">
+  <div class="section-header">
+    <div class="section-tag">09</div>
+    <h2>Quick <span>Revision Mode</span></h2>
+    <p class="section-sub">Everything you need in one shot — 10 minutes before exam</p>
+  </div>
+
+  <div class="tabs" style="margin-bottom:24px;">
+    <button class="tab-btn active" onclick="switchRevTab(event,'rev-formulas')">📐 All Formulas</button>
+    <button class="tab-btn" onclick="switchRevTab(event,'rev-concepts')">🧠 Key Concepts</button>
+    <button class="tab-btn" onclick="switchRevTab(event,'rev-mistakes')">⚠️ Avoid These</button>
+    <button class="tab-btn" onclick="switchRevTab(event,'rev-checklist')">✅ Checklist</button>
+  </div>
+
+  <div class="tab-pane active" id="rev-formulas">
+    <div id="rev-formula-content"></div>
+  </div>
+  <div class="tab-pane" id="rev-concepts">
+    <div id="rev-concept-content"></div>
+  </div>
+  <div class="tab-pane" id="rev-mistakes">
+    <div id="rev-mistakes-content"></div>
+  </div>
+  <div class="tab-pane" id="rev-checklist">
+    <div id="rev-checklist-content"></div>
+  </div>
+</section>
+
+<div style="height:80px;"></div>
+</div><!-- end #main -->
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+
+const roadmapData = [
+  { num:'01', name:'Electric Charge', tag:'Core', type:'core', link:'#cc1' },
+  { num:'02', name:'Properties of Charge', tag:'Core', type:'core', link:'#cc1' },
+  { num:'03', name:'Conductors & Insulators', tag:'Core', type:'core', link:'#cc2' },
+  { num:'04', name:'Charging Methods', tag:'Core', type:'core', link:'#cc2' },
+  { num:'05', name:"Coulomb's Law", tag:'High Priority', type:'high', link:'#cc3' },
+  { num:'06', name:'Superposition Principle', tag:'High Priority', type:'high', link:'#cc4' },
+  { num:'07', name:'Electric Field', tag:'High Priority', type:'high', link:'#cc5' },
+  { num:'08', name:'Field Due to Distributions', tag:'Formula', type:'formula', link:'#cc9' },
+  { num:'09', name:'Electric Field Lines', tag:'Core', type:'core', link:'#cc6' },
+  { num:'10', name:'Electric Dipole', tag:'High Priority', type:'high', link:'#cc7' },
+  { num:'11', name:'Motion in E-Field', tag:'Formula', type:'formula', link:'#cc8' },
+  { num:'12', name:"Gauss's Law", tag:'High Priority', type:'high', link:'#cc5' },
+];
+
+const formulaData = [
+  {
+    name:"Coulomb's Law",
+    formula:'F = kq₁q₂/r²',
+    meaning:[
+      ['k', '9×10⁹ N·m²·C⁻² (Coulomb constant = 1/4πε₀)'],
+      ['q₁,q₂', 'Point charges (C), include signs for direction'],
+      ['r', 'Distance between charges (m)'],
+    ],
+    use:'Force between two point charges in vacuum',
+    trick:'k = 9×10⁹. Memorize as 9 Giga. In medium: replace k with k/εr',
+    trap:'Valid only for point charges or spheres. Fails at r < 10⁻¹⁵ m'
+  },
+  {
+    name:'Coulomb in Vector Form',
+    formula:'F⃗ = (q₁q₂/4πε₀r²)r̂',
+    meaning:[
+      ['r̂', 'Unit vector from source to field point'],
+      ['ε₀', '8.85×10⁻¹² C²/N·m² (permittivity of vacuum)'],
+    ],
+    use:'When direction of force matters (vector problems)',
+    trick:'r̂ always points from the charge EXERTING force to the one EXPERIENCING it',
+    trap:'F⃗₁₂ and F⃗₂₁ are equal and opposite (Newton\'s 3rd law)'
+  },
+  {
+    name:'Electric Field (Point Charge)',
+    formula:'E = kq/r² = q/(4πε₀r²)',
+    meaning:[
+      ['E', 'Electric field strength (N/C or V/m)'],
+      ['q', 'Source charge (positive → outward, negative → inward)'],
+      ['r', 'Distance from source charge (m)'],
+    ],
+    use:'E due to a point charge at distance r',
+    trick:'E falls as 1/r² — double the distance → E becomes 1/4',
+    trap:'E at the location OF the charge is undefined (infinite). Always r > 0'
+  },
+  {
+    name:'Field on Axial Line of Dipole',
+    formula:'E_ax = 2kp/r³ (short dipole)',
+    meaning:[
+      ['p', 'Dipole moment = q×2l (C·m)'],
+      ['r', 'Distance from center of dipole (r >> l)'],
+    ],
+    use:'JEE problems on dipole field along axis',
+    trick:'Axial = 2× Equatorial at same distance. Axial is in same direction as p⃗',
+    trap:'Only valid when r >> l (short dipole approximation). Exact formula has (r²-l²)²'
+  },
+  {
+    name:'Field on Equatorial Line of Dipole',
+    formula:'E_eq = kp/r³ (short dipole)',
+    meaning:[
+      ['p', 'Dipole moment (C·m)'],
+      ['r', 'Distance from center (r >> l)'],
+    ],
+    use:'Field on perpendicular bisector of dipole',
+    trick:'Direction is ANTIPARALLEL to p⃗. Half of axial field at same distance',
+    trap:'Equatorial field is opposite to dipole moment direction!'
+  },
+  {
+    name:'Torque on Dipole',
+    formula:'τ = pE sinθ (τ⃗ = p⃗ × E⃗)',
+    meaning:[
+      ['p', 'Dipole moment (C·m)'],
+      ['E', 'External electric field (N/C)'],
+      ['θ', 'Angle between p⃗ and E⃗'],
+    ],
+    use:'Torque experienced by dipole in uniform field',
+    trick:'Max torque when θ = 90° → τ_max = pE. Zero torque at 0° and 180°',
+    trap:'Net FORCE on dipole in uniform field is zero. Only torque acts!'
+  },
+  {
+    name:'Dipole Potential Energy',
+    formula:'U = −pE cosθ = −p⃗·E⃗',
+    meaning:[
+      ['U', 'Potential energy of dipole in field'],
+      ['θ', 'Angle between p⃗ and E⃗'],
+    ],
+    use:'Energy analysis, stability conditions',
+    trick:'U = −pE (min, stable) at θ=0°. U = +pE (max, unstable) at θ=180°',
+    trap:'U is minimum (most negative) at stable equilibrium. Student often confuses min U with min |U|'
+  },
+  {
+    name:'Ring Field (Axial)',
+    formula:'E = kQx/(x²+R²)^(3/2)',
+    meaning:[
+      ['Q', 'Total charge on ring (C)'],
+      ['R', 'Radius of ring (m)'],
+      ['x', 'Axial distance from center (m)'],
+    ],
+    use:'Field on axis of uniformly charged ring',
+    trick:'Max at x = R/√2. At x=0: E=0. At x>>R: E→kQ/x² (point charge)',
+    trap:'The x in numerator is critical — this is NOT kQ/(x²+R²). Integration gives this form.'
+  },
+  {
+    name:'Infinite Line Charge',
+    formula:'E = λ/(2πε₀r)',
+    meaning:[
+      ['λ', 'Linear charge density (C/m)'],
+      ['r', 'Perpendicular distance from wire (m)'],
+    ],
+    use:'Infinite wire, long cable problems',
+    trick:'E ∝ 1/r (NOT 1/r²!). Field lines are radially outward (cylindrical symmetry)',
+    trap:'This uses Gauss\'s Law. Only valid for infinite (or very long) wire'
+  },
+  {
+    name:'Infinite Plane Sheet',
+    formula:'E = σ/(2ε₀)',
+    meaning:[
+      ['σ', 'Surface charge density (C/m²)'],
+      ['ε₀', '8.85×10⁻¹² C²/N·m²'],
+    ],
+    use:'Field near an infinite plane sheet',
+    trick:'E is uniform and perpendicular to sheet. Independent of distance!',
+    trap:'Between two parallel plates: E = σ/ε₀ (fields ADD). Outside: E = 0 (fields cancel)'
+  },
+  {
+    name:'Conducting Sphere (Outside)',
+    formula:'E = kQ/r² (for r > R)',
+    meaning:[
+      ['Q', 'Total charge on sphere'],
+      ['R', 'Radius of sphere'],
+      ['r', 'Distance from center (r > R)'],
+    ],
+    use:'Field outside any conducting sphere — behaves like point charge',
+    trick:'Use r from center, NOT from surface. At r = R (surface): E = σ/ε₀',
+    trap:'Inside a conductor: E = 0 always (fundamental property)'
+  },
+  {
+    name:'Dipole Oscillation Period',
+    formula:'T = 2π√(I/pE)',
+    meaning:[
+      ['I', 'Moment of inertia of dipole about center'],
+      ['p', 'Dipole moment (C·m)'],
+      ['E', 'Uniform electric field (N/C)'],
+    ],
+    use:'Dipole undergoing SHM in uniform field (small angle)',
+    trick:'Analogy: T = 2π√(L/g) for pendulum. Replace L/g with I/pE',
+    trap:'Only valid for SMALL angles. For large angles, it\'s not simple SHM'
+  },
+];
+
+const examplesData = [
+  {
+    title:'Example 1 — Equilibrium of Three Collinear Charges',
+    difficulty:'JEE Main',
+    problem:'Charges +4q and +q are placed at x = 0 and x = L respectively. Find the position where a third charge Q must be placed for equilibrium. What should be the sign of Q?',
+    thinking:'For a charge to be in equilibrium between two like charges, the charge must be opposite in sign (attracted from both sides). Let Q be at position x from origin.',
+    steps:[
+      { label:'Set Up', text:'Let Q be at position x. Forces on Q from +4q and +q must balance.' },
+      { label:'Force Balance', text:'k(4q)|Q|/x² = k(q)|Q|/(L−x)² → 4/x² = 1/(L−x)² → 4(L−x)² = x²' },
+      { label:'Solve', text:'Taking square root: 2(L−x) = ±x. Taking positive: 2L−2x = x → x = 2L/3' },
+      { label:'Sign of Q', text:'Q must be negative (opposite sign) to be attracted toward both +charges and achieve equilibrium.' },
+    ],
+    answer:'Q must be at x = 2L/3 from +4q. The charge Q = −4q/9 for complete equilibrium.',
+    shortcut:'For charges q₁ and q₂ separated by distance L: equilibrium position from q₁ is at x = L/(1 + √(q₂/q₁)) ... Verify by substitution!',
+    mistake:'Students often put Q between the charges for same-sign charge problems (correct) but forget that Q itself must be opposite in sign to be in stable equilibrium.'
+  },
+  {
+    title:'Example 2 — Electric Field at Centroid of Triangle',
+    difficulty:'JEE Advanced',
+    problem:'Three equal charges +q are placed at the vertices of an equilateral triangle with side a. Find the electric field at the centroid of the triangle.',
+    thinking:'Use superposition. By symmetry, the three equal forces at centroid must sum to zero — but let\'s verify geometrically.',
+    steps:[
+      { label:'Distance to centroid', text:'For equilateral triangle side a, centroid is at distance a/√3 from each vertex.' },
+      { label:'Field from each charge', text:'Each charge creates field E = kq/(a/√3)² = 3kq/a² at centroid.' },
+      { label:'Directions', text:'Three field vectors at 120° apart. By vector symmetry: E₁+E₂+E₃ = 0.' },
+      { label:'Result', text:'E_net = 0 at centroid. The three field vectors form a closed equilateral triangle → vector sum = 0.' },
+    ],
+    answer:'Electric field at centroid = 0',
+    shortcut:'Whenever n equal charges are at corners of a regular polygon, the field at the center is always ZERO by symmetry. No calculation needed!',
+    mistake:'Not recognizing the symmetry and doing unnecessary component calculations.'
+  },
+  {
+    title:'Example 3 — Dipole in External Field',
+    difficulty:'JEE Main',
+    problem:'An electric dipole of moment p = 2×10⁻⁸ C·m is placed in a uniform electric field E = 5×10⁴ N/C making angle 30° with the field. Find: (a) torque on dipole, (b) work done to align dipole with field.',
+    thinking:'Torque = pE sinθ. Work = change in potential energy = U_final − U_initial = −pE cos(0°) − (−pE cos30°)',
+    steps:[
+      { label:'Torque', text:'τ = pE sinθ = (2×10⁻⁸)(5×10⁴) sin30° = (10⁻³)(0.5) = 5×10⁻⁴ N·m' },
+      { label:'Initial PE', text:'U_initial = −pE cos30° = −(2×10⁻⁸)(5×10⁴)(√3/2) = −√3 × 10⁻³ J' },
+      { label:'Final PE (aligned)', text:'U_final = −pE cos0° = −(2×10⁻⁸)(5×10⁴)(1) = −10⁻³ J' },
+      { label:'Work Done', text:'W = ΔU = U_final − U_initial = −10⁻³ − (−√3×10⁻³) = (√3−1)×10⁻³ ≈ 7.3×10⁻⁴ J' },
+    ],
+    answer:'τ = 5×10⁻⁴ N·m; W = (√3−1)×10⁻³ J ≈ 7.3×10⁻⁴ J',
+    shortcut:'Work done = pE(cosθ₁ − cosθ₂). Here: pE(cos30° − cos0°) for alignment. Note: if rotating from stable to unstable, work done = 2pE.',
+    mistake:'Forgetting the negative sign in U = −pE cosθ. Confusing U_max with U_min.'
+  },
+  {
+    title:'Example 4 — Charge Distribution on Conducting Spheres',
+    difficulty:'JEE Main',
+    problem:'Two identical conducting spheres A and B carry charges Q and −Q/2 respectively. They are brought into contact and then separated. Find charges on each after separation.',
+    thinking:'In contact, total charge distributes equally (identical spheres). Total = Q + (−Q/2) = Q/2.',
+    steps:[
+      { label:'Total charge', text:'Q_total = Q + (−Q/2) = Q/2' },
+      { label:'After contact', text:'Equal distribution: Q_A = Q_B = Q_total/2 = Q/4' },
+      { label:'Final state', text:'After separation, each sphere has charge +Q/4' },
+    ],
+    answer:'Each sphere has charge +Q/4 after separation',
+    shortcut:'For n identical spheres in contact: Q_each = Q_total/n. Always sum all charges first (with sign!)',
+    mistake:'Forgetting to include negative sign when summing charges. Also: charge distributes equally ONLY for identical spheres.'
+  },
+  {
+    title:'Example 5 — Ring of Charge Axial Field',
+    difficulty:'JEE Advanced',
+    problem:'A ring of radius R carries total charge Q. Find: (a) electric field at center, (b) at a point on axis at distance x = R from center, (c) the value of x where field is maximum.',
+    thinking:'Use the ring formula E = kQx/(x²+R²)^(3/2). Center is x=0, maximum from dE/dx = 0.',
+    steps:[
+      { label:'At center (x=0)', text:'E = kQ(0)/(0²+R²)^(3/2) = 0. By symmetry also obvious.' },
+      { label:'At x = R', text:'E = kQR/(R²+R²)^(3/2) = kQR/(2R²)^(3/2) = kQ/(2√2 R²) = kQ/(2^(3/2) R²)' },
+      { label:'For maximum', text:'dE/dx = 0 → differentiate: x²+R² − (3/2)(2x)·x = 0 at numerator of derivative → R² − 2x² = 0 → x = R/√2' },
+      { label:'E_max', text:'E_max = kQ(R/√2)/(R²/2+R²)^(3/2) = kQ/(3^(3/2) R²/2) ... simplify to kQ×2/(3√3 R²)' },
+    ],
+    answer:'(a) E=0, (b) E=kQ/(2√2 R²), (c) x_max = R/√2',
+    shortcut:'Ring field max position x = R/√2 is a direct result. Memorize it!',
+    mistake:'Computing dE/dx incorrectly. The key step: set d/dx[x/(x²+R²)^(3/2)] = 0 → (x²+R²) - 3x² = 0 → x = R/√2'
+  },
+  {
+    title:'Example 6 — Electron in Uniform Electric Field',
+    difficulty:'Easy',
+    problem:'An electron enters a uniform electric field E = 5000 V/m horizontally with velocity v₀ = 2×10⁶ m/s. Plates are L = 0.2 m long. Find: (a) acceleration, (b) vertical deflection while in field, (c) deflection angle at exit.',
+    thinking:'Exactly like projectile motion: horizontal motion uniform, vertical motion uniformly accelerated.',
+    steps:[
+      { label:'Acceleration', text:'a = eE/m_e = (1.6×10⁻¹⁹)(5000)/(9.1×10⁻³¹) = 8×10⁻¹⁶/9.1×10⁻³¹ ≈ 8.8×10¹⁴ m/s²' },
+      { label:'Time in field', text:'t = L/v₀ = 0.2/(2×10⁶) = 10⁻⁷ s' },
+      { label:'Vertical deflection', text:'y = ½at² = ½(8.8×10¹⁴)(10⁻⁷)² = ½(8.8×10¹⁴)(10⁻¹⁴) = 4.4×10⁻³ m ≈ 4.4 mm' },
+      { label:'Exit angle', text:'v_y = at = (8.8×10¹⁴)(10⁻⁷) = 8.8×10⁷ m/s. tan α = v_y/v₀ = 8.8×10⁷/2×10⁶ = 44. α ≈ 89°' },
+    ],
+    answer:'a ≈ 8.8×10¹⁴ m/s², y ≈ 4.4 mm',
+    shortcut:'y = (qEL²)/(2mv₀²) — memorize this direct formula for deflection inside capacitor plates!',
+    mistake:'For electron, direction of acceleration is OPPOSITE to E field (negative charge). The deflection is toward +plate.'
+  },
+];
+
+const memoryData = [
+  { emoji:'🧲', title:"Coulomb's Law Memory", text:'<span class="mnemonic-key">F ∝ q₁q₂/r²</span> — "Charges Quadruple, Force Quadruples. Distance Doubles, Force Quarters." Inverse square: same as gravity!' },
+  { emoji:'⬆️', title:'Direction of E Field', text:'<span class="mnemonic-key">E always points where +q would go.</span> Positive charge → field goes outward (runs away). Negative charge → field goes inward (runs toward). Think: "field follows positive charges"' },
+  { emoji:'↔️', title:'Axial vs Equatorial', text:'<span class="mnemonic-key">SAFE</span> = Same-Axial, Flip-Equatorial. On Axial line: E in same direction as p⃗. On Equatorial: E is Flipped (antiparallel). Axial = 2× Equatorial.' },
+  { emoji:'🌀', title:'Field Lines 3 NOs', text:'Field lines: <span class="mnemonic-key">No intersection, No closed loops, No inside conductor.</span> The 3 NOs. Also: they are always ⊥ to conductor surface.' },
+  { emoji:'⚖️', title:'Dipole Equilibrium', text:'<span class="mnemonic-key">With field = Stable, Against field = Unstable.</span> p⃗ parallel to E⃗ → stable (U = −pE, minimum). p⃗ antiparallel → unstable (U = +pE, maximum).' },
+  { emoji:'🔋', title:'Quantization Trick', text:'<span class="mnemonic-key">1.6 × 10⁻¹⁹</span>. Memory: "160 over 10²⁰" or think: e = 0.16 aC (attoculombs). Any charge = n × 0.16 × 10⁻¹⁸ C.' },
+  { emoji:'📏', title:'Field Line Density', text:'<span class="mnemonic-key">Dense = Strong.</span> Where field lines are close together, field is strong. Parallel equidistant lines = uniform field. This is how we READ field line diagrams!' },
+  { emoji:'🎯', title:'Superposition Trick', text:'<span class="mnemonic-key">Symmetry is your friend.</span> Before calculating, always check: is there a symmetry that makes components cancel? Saves 90% of calculation in JEE!' },
+  { emoji:'🔭', title:'Dipole at General Point', text:'<span class="mnemonic-key">E = (kp/r³)√(1+3cos²θ)</span>. At θ=0: E=2kp/r³ (axial). At θ=90°: E=kp/r³ (equatorial). The formula unifies both!' },
+];
+
+const pyqTopics = [
+  { name:'Electric Field & Superposition', pct:28, priority:'★★★★★' },
+  { name:"Coulomb's Law (Force)", pct:22, priority:'★★★★★' },
+  { name:'Electric Dipole', pct:20, priority:'★★★★★' },
+  { name:'Field Lines & Properties', pct:10, priority:'★★★☆☆' },
+  { name:'Motion in E-field', pct:10, priority:'★★★★☆' },
+  { name:'Conductors & Induction', pct:6, priority:'★★★☆☆' },
+  { name:'Continuous Distributions', pct:4, priority:'★★☆☆☆' },
+];
+
+const fastStrategies = [
+  'Use symmetry FIRST — check if answer is obviously 0 before calculating',
+  'For identical spheres: charge = (Q₁+Q₂)/2 after contact. No calculation needed.',
+  'For equilateral triangle/square with equal charges: field at center = 0',
+  'At distance r>>l from dipole: axial = 2kp/r³, equatorial = kp/r³',
+  'Parallel plate capacitor: E = σ/ε₀ = V/d between plates',
+  'For equilibrium of +Q between +q₁ and +q₂: position divides distance as √q₁:√q₂',
+  'Ring maximum field is at x = R/√2 — just memorize this',
+  'In uniform field, dipole has zero net force but non-zero torque',
+];
+
+const advPatterns = [
+  'Multiple charges + equilibrium conditions (system of equations)',
+  'Continuous charge distributions requiring integration',
+  'Dipole in non-uniform field (force AND torque)',
+  'Charged particle in combination of gravity + electric field',
+  'Point charges on different geometric configurations (triangle, square, regular polygon)',
+  'Field inside non-conducting vs conducting spheres (comparing)',
+  'Induced charge distribution and shielding',
+];
+
+const revFormulas = [
+  { f:'F = kq₁q₂/r²', n:"Coulomb's Law" },
+  { f:'k = 9×10⁹ N·m²C⁻²', n:'Coulomb constant' },
+  { f:'ε₀ = 8.85×10⁻¹² C²N⁻¹m⁻²', n:'Permittivity of vacuum' },
+  { f:'E = kq/r²', n:'Point charge field' },
+  { f:'E_ax = 2kp/r³', n:'Dipole axial field' },
+  { f:'E_eq = kp/r³', n:'Dipole equatorial field' },
+  { f:'τ = pE sinθ', n:'Torque on dipole' },
+  { f:'U = −pE cosθ', n:'Dipole PE' },
+  { f:'E_ring = kQx/(x²+R²)^(3/2)', n:'Ring axis field' },
+  { f:'E_line = λ/(2πε₀r)', n:'Infinite line charge' },
+  { f:'E_sheet = σ/(2ε₀)', n:'Infinite plane sheet' },
+  { f:'Q = ±ne', n:'Quantization of charge' },
+  { f:'T = 2π√(I/pE)', n:'Dipole SHM period' },
+  { f:'a = qE/m', n:'Charged particle acceleration' },
+];
+
+const revConcepts = [
+  'Charge is conserved, quantized (Q=ne), invariant with speed, additive (algebraic sum)',
+  'Conductors: charge on surface, E=0 inside, E⊥surface. Insulators: charge stays put',
+  'Induction: opposite charge induced without contact; inducing body doesn\'t lose charge',
+  'Coulomb: inverse square, central, conservative. F = kq₁q₂/r². In medium: F/εr',
+  'Superposition: net force/field = vector sum of individual contributions',
+  'E field: F/q₀ (force on unit +charge). Points: away from +, toward −',
+  'E inside conductor = 0 always. E outside ∝ 1/r² (like point charge)',
+  'Dipole moment p = q×2l, direction: −q to +q',
+  'Axial > Equatorial by factor 2. Axial ∥ p⃗, Equatorial antiparallel to p⃗',
+  'In uniform field: dipole torque = pEsinθ, force = 0. Stable at θ=0°',
+  'Ring field: 0 at center, max at x=R/√2, →kQ/x² at x>>R',
+  'Field lines: never cross, ⊥ to conductors, denser=stronger, start at +, end at −',
+];
+
+const revMistakes = [
+  'Adding charge magnitudes without signs (always use signed addition: Q = Q₁ + Q₂)',
+  'Using E = kq/r² for non-point charges (valid only for spheres r > R)',
+  'Forgetting dipole equatorial field is ANTIPARALLEL to p⃗',
+  'Net force on dipole in uniform field = 0 (only torque, never force)',
+  'Coulomb force in medium: F = kq₁q₂/(εr·r²) — dividing by εr, not multiplying',
+  'For induction charging: remove ground wire BEFORE removing inducing rod',
+  'E at center of ring = 0 (not kQ/R² — that\'s surface field for a sphere)',
+  'Dipole stable equilibrium: U = −pE (minimum, most negative, θ=0°)',
+  'Quantization: Q can never be ±2/3e or ±1/3e in free state (quarks confined)',
+  'Superposition: force between any two charges is independent of other charges',
+];
+
+const revChecklist = [
+  'I can state and apply Coulomb\'s Law in scalar and vector form',
+  'I understand all properties of charge (conserved, quantized, invariant, additive)',
+  'I can find equilibrium position of a charge in a system',
+  'I can calculate electric field due to point charge, dipole, ring, line, plane',
+  'I know when to apply superposition and can add forces vectorially',
+  'I can find torque, PE, and stability of dipole in uniform field',
+  'I understand field lines and can sketch them for various charge configurations',
+  'I can apply motion in uniform electric field (projectile analogy)',
+  'I know E=0 inside conductor and charge resides on surface',
+  'I can find equilibrium conditions using superposition',
+  'I know ring field formula and can find maximum position',
+  'I can solve JEE-level problems combining Coulomb + superposition + symmetry',
+];
+
+// ═══════════════════════════════════════════
+// RENDER FUNCTIONS
+// ═══════════════════════════════════════════
+
+function renderRoadmap() {
+  const g = document.getElementById('roadmap-grid');
+  const done = getDoneTopics();
+  g.innerHTML = roadmapData.map((t,i) => `
+    <div class="roadmap-item ${done.includes(i) ? 'done' : ''}" onclick="toggleTopic(${i},this)" data-link="${t.link}">
+      <div class="roadmap-num">${t.num}</div>
+      <div class="roadmap-name">${t.name}</div>
+      <span class="roadmap-tag tag-${t.type}">${t.tag}</span>
+      <div class="roadmap-check">✓</div>
+    </div>
+  `).join('');
+  renderSidebarChecklist();
+}
+
+function renderFormulas() {
+  const g = document.getElementById('formula-grid');
+  g.innerHTML = formulaData.map(f => `
+    <div class="formula-card">
+      <div class="formula-top">
+        <div class="formula-main">${f.formula}</div>
+        <div class="formula-name">${f.name}</div>
+      </div>
+      <div class="formula-body">
+        ${f.meaning.map(([k,v]) => `<div class="formula-row"><span class="key">${k}</span><span style="color:var(--text2)">${v}</span></div>`).join('')}
+        <div class="formula-row"><span class="key">Use when</span><span style="color:var(--text2)">${f.use}</span></div>
+        <div class="formula-trick">💡 ${f.trick}</div>
+        <div class="formula-trap">⚠️ ${f.trap}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderExamples() {
+  const c = document.getElementById('examples-container');
+  c.innerHTML = examplesData.map((ex,i) => `
+    <div class="example-card">
+      <div class="example-header">
+        <div class="example-title">${ex.title}</div>
+        <span class="diff-badge diff-${ex.difficulty === 'Easy' ? 'easy' : ex.difficulty === 'JEE Main' ? 'jee-main' : ex.difficulty === 'JEE Advanced' ? 'jee-adv' : 'mod'}">${ex.difficulty}</span>
+      </div>
+      <div class="example-body">
+        <div class="box-insight" style="margin-top:0;"><div class="box-title">📋 Problem</div>${ex.problem}</div>
+        <div style="margin:12px 0; font-size:13px; color:var(--text3); font-style:italic;">💭 Thinking: ${ex.thinking}</div>
+        ${ex.steps.map((s,j) => `
+          <div class="step">
+            <div class="step-num">${j+1}</div>
+            <div class="step-content">
+              <div class="step-label">${s.label}</div>
+              <div style="font-size:13.5px; color:var(--text2)">${s.text}</div>
+            </div>
+          </div>
+        `).join('')}
+        <div class="math-block">Answer: ${ex.answer}</div>
+        <div class="box-shortcut"><div class="box-title">⚡ Faster Method</div>${ex.shortcut}</div>
+        <div class="box-warning"><div class="box-title">⚠️ Why Students Get It Wrong</div>${ex.mistake}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderMemory() {
+  const g = document.getElementById('memory-grid');
+  g.innerHTML = memoryData.map(m => `
+    <div class="mnemonic-card">
+      <div class="mnemonic-emoji">${m.emoji}</div>
+      <div class="mnemonic-title">${m.title}</div>
+      <div class="mnemonic-text">${m.text}</div>
+    </div>
+  `).join('');
+}
+
+function renderPYQ() {
+  const bars = document.getElementById('pyq-bars');
+  bars.innerHTML = pyqTopics.map(t => `
+    <div>
+      <div class="pyq-topic"><span class="name">${t.name}</span><span class="pct">${t.pct}%</span></div>
+      <div class="pyq-bar-wrap"><div class="pyq-bar" style="width:${t.pct*3}px; max-width:100%;"></div></div>
+    </div>
+  `).join('');
+
+  const priority = document.getElementById('pyq-priority');
+  priority.innerHTML = pyqTopics.map(t => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;">
+      <span style="color:var(--text2)">${t.name}</span>
+      <span style="color:var(--yellow)">${t.priority}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('fast-strategies').innerHTML = fastStrategies.map(s => `<li>${s}</li>`).join('');
+  document.getElementById('adv-patterns').innerHTML = advPatterns.map(s => `<li>${s}</li>`).join('');
+}
+
+function renderRevision() {
+  document.getElementById('rev-formula-content').innerHTML = `
+    <div class="grid-3" style="gap:12px;">
+      ${revFormulas.map(f => `
+        <div class="glass-card" style="padding:14px;">
+          <div class="formula-main" style="font-size:14px;">${f.f}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:6px;">${f.n}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  document.getElementById('rev-concept-content').innerHTML = `
+    <div class="glass-card">
+      <ul class="styled-list">
+        ${revConcepts.map(c => `<li>${c}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+
+  document.getElementById('rev-mistakes-content').innerHTML = `
+    <div class="glass-card">
+      <ul class="styled-list">
+        ${revMistakes.map(m => `<li><span style="color:var(--pink);">✗</span> ${m}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+
+  const saved = getSavedChecklist();
+  document.getElementById('rev-checklist-content').innerHTML = `
+    <div class="glass-card">
+      ${revChecklist.map((item,i) => `
+        <div class="checklist-item ${saved[i] ? 'checked' : ''}" id="chk-${i}">
+          <div class="check-box ${saved[i] ? 'checked' : ''}" onclick="toggleCheck(${i})">
+            ${saved[i] ? '✓' : ''}
+          </div>
+          <div class="check-text">${item}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderSidebarChecklist() {
+  const done = getDoneTopics();
+  const sb = document.getElementById('sidebar-checklist');
+  sb.innerHTML = roadmapData.map((t,i) => `
+    <div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;color:${done.includes(i) ? 'var(--green)' : 'var(--text3)'};">
+      <span>${done.includes(i) ? '✓' : '○'}</span>
+      <span>${t.name}</span>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════
+// STATE MANAGEMENT
+// ═══════════════════════════════════════════
+
+function getDoneTopics() {
+  return JSON.parse(localStorage.getItem('ecf-done') || '[]');
+}
+function saveDoneTopics(arr) {
+  localStorage.setItem('ecf-done', JSON.stringify(arr));
+}
+function toggleTopic(idx, el) {
+  let done = getDoneTopics();
+  if (done.includes(idx)) {
+    done = done.filter(i => i !== idx);
+    el.classList.remove('done');
+  } else {
+    done.push(idx);
+    el.classList.add('done');
+  }
+  saveDoneTopics(done);
+  updateProgress();
+  renderSidebarChecklist();
+}
+function updateProgress() {
+  const done = getDoneTopics();
+  const pct = Math.round((done.length / roadmapData.length) * 100);
+  document.getElementById('sp-pct').textContent = pct + '%';
+  document.getElementById('sp-fill').style.width = pct + '%';
+  document.getElementById('sp-topics').textContent = `${done.length} / ${roadmapData.length} topics done`;
+  document.getElementById('nav-pct').textContent = pct + '%';
+  document.getElementById('nav-fill').style.width = pct + '%';
+}
+
+function getSavedChecklist() {
+  return JSON.parse(localStorage.getItem('ecf-checklist') || '{}');
+}
+function toggleCheck(i) {
+  const saved = getSavedChecklist();
+  saved[i] = !saved[i];
+  localStorage.setItem('ecf-checklist', JSON.stringify(saved));
+  const row = document.getElementById('chk-' + i);
+  const box = row.querySelector('.check-box');
+  if (saved[i]) {
+    row.classList.add('checked');
+    box.classList.add('checked');
+    box.textContent = '✓';
+  } else {
+    row.classList.remove('checked');
+    box.classList.remove('checked');
+    box.textContent = '';
+  }
+}
+
+// ═══════════════════════════════════════════
+// UI INTERACTIONS
+// ═══════════════════════════════════════════
+
+function toggleConcept(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+function toggleConfused(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('show');
+}
+
+function switchTab(e, targetId) {
+  const parent = e.target.closest('.concept-body') || e.target.closest('.section');
+  const tabs = e.target.parentElement.querySelectorAll('.tab-btn');
+  const panes = (parent || document).querySelectorAll('.tab-pane');
+  tabs.forEach(t => t.classList.remove('active'));
+  e.target.classList.add('active');
+  panes.forEach(p => {
+    if (p.id === targetId) p.classList.add('active');
+    else if ([...tabs].some(t => t.getAttribute('onclick') && t.getAttribute('onclick').includes(p.id))) p.classList.remove('active');
+  });
+  document.getElementById(targetId).classList.add('active');
+  // hide siblings
+  const siblings = document.getElementById(targetId).parentElement.querySelectorAll('.tab-pane');
+  siblings.forEach(s => { if(s.id !== targetId) s.classList.remove('active'); });
+}
+
+function switchRevTab(e, targetId) {
+  document.querySelectorAll('#revision .tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#revision .tab-pane').forEach(p => p.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(targetId).classList.add('active');
+}
+
+function setActive(el) {
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════
+// SIMULATION 1: COULOMB'S LAW
+// ═══════════════════════════════════════════
+
+(function() {
+  const canvas = document.getElementById('coulombCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  let charges = [
+    { x: W*0.3, y: H/2, q: 2, dragging: false },
+    { x: W*0.7, y: H/2, q: -3, dragging: false },
+  ];
+  let dragIdx = -1;
+
+  function getColor(q) {
+    if (q > 0) return `rgba(79,142,247,${Math.min(1, Math.abs(q)/5)})`;
+    return `rgba(247,37,133,${Math.min(1, Math.abs(q)/5)})`;
+  }
+  function getEdgeColor(q) { return q > 0 ? '#4f8ef7' : '#f72585'; }
+
+  function drawArrow(x1,y1,x2,y2,color,label) {
+    const dx = x2-x1, dy = y2-y1;
+    const len = Math.sqrt(dx*dx+dy*dy);
+    if (len < 2) return;
+    const nx = dx/len, ny = dy/len;
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x2,y2);
+    ctx.stroke();
+    // arrowhead
+    const asize = 10;
+    ctx.beginPath();
+    ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-asize*(nx-ny*0.5), y2-asize*(ny+nx*0.5));
+    ctx.lineTo(x2-asize*(nx+ny*0.5), y2-asize*(ny-nx*0.5));
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+    // label
+    if (label) {
+      ctx.fillStyle = color;
+      ctx.font = '11px Space Mono, monospace';
+      ctx.fillText(label, x2+8, y2-8);
+    }
+    ctx.restore();
+  }
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    // Grid
+    ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+    ctx.lineWidth = 1;
+    for (let x=0;x<W;x+=40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y=0;y<H;y+=40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+    const q1 = parseFloat(document.getElementById('q1Slider').value);
+    const q2 = parseFloat(document.getElementById('q2Slider').value);
+    charges[0].q = q1; charges[1].q = q2;
+
+    const dx = charges[1].x - charges[0].x;
+    const dy = charges[1].y - charges[0].y;
+    const r = Math.sqrt(dx*dx+dy*dy);
+    const rMeters = r / 60;
+    const k = 9e9;
+    const F_mag = k * Math.abs(q1*q2) * 1e-12 / (rMeters*rMeters);
+    const nx = dx/r, ny = dy/r;
+    const attractive = (q1*q2 < 0);
+
+    // Force arrows
+    const arrowScale = Math.min(80, 50 / (rMeters*rMeters));
+    const dir1 = attractive ? 1 : -1;
+    const dir2 = attractive ? -1 : 1;
+
+    drawArrow(
+      charges[0].x, charges[0].y,
+      charges[0].x + nx * arrowScale * dir1, charges[0].y + ny * arrowScale * dir1,
+      '#ffd166', 'F₁'
+    );
+    drawArrow(
+      charges[1].x, charges[1].y,
+      charges[1].x - nx * arrowScale * dir2, charges[1].y - ny * arrowScale * dir2,
+      '#ffd166', 'F₂'
+    );
+
+    // Distance line
+    ctx.save();
+    ctx.setLineDash([6,4]);
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(charges[0].x, charges[0].y);
+    ctx.lineTo(charges[1].x, charges[1].y);
+    ctx.stroke();
+    ctx.restore();
+    // Distance label
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.font = '11px Space Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(`r = ${rMeters.toFixed(2)} m`, (charges[0].x+charges[1].x)/2, (charges[0].y+charges[1].y)/2 - 14);
+    ctx.textAlign = 'left';
+
+    // Draw charges
+    charges.forEach(c => {
+      const r2 = 24 + Math.abs(c.q)*3;
+      // Glow
+      ctx.save();
+      ctx.shadowColor = getEdgeColor(c.q);
+      ctx.shadowBlur = 30;
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, r2, 0, Math.PI*2);
+      ctx.fillStyle = getColor(c.q);
+      ctx.fill();
+      ctx.restore();
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, r2, 0, Math.PI*2);
+      ctx.strokeStyle = getEdgeColor(c.q);
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // Label
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 14px DM Sans, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText((c.q >= 0 ? '+' : '') + c.q + 'μC', c.x, c.y);
+      ctx.textBaseline = 'alphabetic';
+      ctx.textAlign = 'left';
+    });
+
+    // Force display
+    document.getElementById('q1Val').textContent = (q1>=0?'+':'') + q1 + 'μC';
+    document.getElementById('q2Val').textContent = (q2>=0?'+':'') + q2 + 'μC';
+    document.getElementById('forceDisplay').textContent = `F = ${F_mag.toFixed(2)} N (${attractive?'attractive':'repulsive'})`;
+
+    requestAnimationFrame(draw);
+  }
+
+  // Drag
+  canvas.addEventListener('mousedown', e => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top) * scaleY;
+    charges.forEach((c,i) => {
+      if (Math.hypot(mx-c.x, my-c.y) < 40) dragIdx = i;
+    });
+  });
+  canvas.addEventListener('mousemove', e => {
+    if (dragIdx < 0) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    charges[dragIdx].x = (e.clientX - rect.left) * scaleX;
+    charges[dragIdx].y = (e.clientY - rect.top) * scaleY;
+  });
+  canvas.addEventListener('mouseup', () => dragIdx = -1);
+  canvas.addEventListener('touchstart', e => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const t = e.touches[0];
+    const mx = (t.clientX - rect.left) * scaleX;
+    const my = (t.clientY - rect.top) * scaleY;
+    charges.forEach((c,i) => { if (Math.hypot(mx-c.x, my-c.y) < 40) dragIdx = i; });
+    e.preventDefault();
+  }, {passive:false});
+  canvas.addEventListener('touchmove', e => {
+    if (dragIdx < 0) return;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const t = e.touches[0];
+    charges[dragIdx].x = (t.clientX - rect.left) * scaleX;
+    charges[dragIdx].y = (t.clientY - rect.top) * scaleY;
+    e.preventDefault();
+  }, {passive:false});
+  canvas.addEventListener('touchend', () => dragIdx = -1);
+
+  draw();
+})();
+
+// ═══════════════════════════════════════════
+// SIMULATION 2: FIELD LINES
+// ═══════════════════════════════════════════
+
+let fieldCharges = [];
+let fieldAnimId = null;
+
+function addPositiveCharge() {
+  const canvas = document.getElementById('fieldCanvas');
+  fieldCharges.push({ x: 100 + Math.random() * (canvas.width-200), y: 50 + Math.random()*(canvas.height-100), q: 1 });
+  drawFieldLines();
+}
+function addNegativeCharge() {
+  const canvas = document.getElementById('fieldCanvas');
+  fieldCharges.push({ x: 100 + Math.random() * (canvas.width-200), y: 50 + Math.random()*(canvas.height-100), q: -1 });
+  drawFieldLines();
+}
+function clearFieldCharges() { fieldCharges = []; drawFieldLines(); }
+function presetDipole() {
+  const c = document.getElementById('fieldCanvas');
+  fieldCharges = [{ x:c.width*0.35, y:c.height/2, q:1 }, { x:c.width*0.65, y:c.height/2, q:-1 }];
+  drawFieldLines();
+}
+function presetLikeCharges() {
+  const c = document.getElementById('fieldCanvas');
+  fieldCharges = [{ x:c.width*0.35, y:c.height/2, q:1 }, { x:c.width*0.65, y:c.height/2, q:1 }];
+  drawFieldLines();
+}
+
+function drawFieldLines() {
+  const canvas = document.getElementById('fieldCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  // Grid bg
+  ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+  for (let x=0;x<W;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for (let y=0;y<H;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  if (fieldCharges.length === 0) {
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.font = '14px DM Sans, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Click buttons above to add charges', W/2, H/2);
+    ctx.textAlign = 'left';
+    return;
+  }
+
+  function getField(x,y) {
+    let ex=0, ey=0;
+    fieldCharges.forEach(c => {
+      const dx=x-c.x, dy=y-c.y;
+      const r2=dx*dx+dy*dy;
+      if (r2<1) return;
+      const r=Math.sqrt(r2);
+      const scale = c.q/r2;
+      ex += scale*dx/r;
+      ey += scale*dy/r;
+    });
+    return {ex,ey};
+  }
+
+  // Draw field lines from each positive charge
+  const nLines = 16;
+  fieldCharges.filter(c=>c.q>0).forEach(src => {
+    for (let i=0;i<nLines;i++) {
+      const angle = (i/nLines)*2*Math.PI;
+      let x = src.x + Math.cos(angle)*20;
+      let y = src.y + Math.sin(angle)*20;
+      ctx.beginPath();
+      ctx.moveTo(x,y);
+      const color = `rgba(79,142,247,0.7)`;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.2;
+      let steps = 0;
+      const maxSteps = 500;
+      while (steps++ < maxSteps) {
+        if (x<0||x>W||y<0||y>H) break;
+        let tooClose = false;
+        for(const c of fieldCharges) {
+          if(Math.hypot(x-c.x,y-c.y) < 14 && c.q < 0) { tooClose=true; break; }
+          if(Math.hypot(x-c.x,y-c.y) < 8) { tooClose=true; break; }
+        }
+        if (tooClose) break;
+        const {ex,ey} = getField(x,y);
+        const mag = Math.sqrt(ex*ex+ey*ey);
+        if (mag < 1e-10) break;
+        const stepSize = 4;
+        const nx = ex/mag*stepSize;
+        const ny = ey/mag*stepSize;
+        x += nx; y += ny;
+        ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+    }
+  });
+
+  // Background vector field (arrows on grid)
+  for (let gx=30;gx<W;gx+=40) {
+    for (let gy=30;gy<H;gy+=40) {
+      const {ex,ey} = getField(gx,gy);
+      const mag = Math.sqrt(ex*ex+ey*ey);
+      if (mag < 1e-6) continue;
+      const scale = Math.min(14, 4/mag*0.01 + 0.5);
+      const nx=ex/mag, ny=ey/mag;
+      ctx.save();
+      ctx.globalAlpha = 0.2;
+      ctx.strokeStyle = mag > 0.05 ? '#4f8ef7' : '#9b5de5';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(gx-nx*scale,gy-ny*scale);
+      ctx.lineTo(gx+nx*scale,gy+ny*scale);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  // Draw charges
+  fieldCharges.forEach(c => {
+    ctx.save();
+    ctx.shadowColor = c.q>0 ? '#4f8ef7' : '#f72585';
+    ctx.shadowBlur = 25;
+    ctx.beginPath();
+    ctx.arc(c.x,c.y,18,0,Math.PI*2);
+    ctx.fillStyle = c.q>0 ? 'rgba(79,142,247,0.8)' : 'rgba(247,37,133,0.8)';
+    ctx.fill();
+    ctx.restore();
+    ctx.strokeStyle = c.q>0 ? '#4f8ef7' : '#f72585';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(c.x,c.y,18,0,Math.PI*2);
+    ctx.stroke();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 16px DM Sans, sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(c.q>0?'+':'−', c.x,c.y);
+    ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+  });
+}
+
+// ═══════════════════════════════════════════
+// SIMULATION 3: DIPOLE
+// ═══════════════════════════════════════════
+
+let dipoleAngle = 45 * Math.PI/180;
+let dipoleAnimating = false;
+let dipoleVel = 0;
+let dipoleAnimId2 = null;
+
+function toggleDipoleAnim() {
+  dipoleAnimating = !dipoleAnimating;
+  const btn = document.querySelector('[onclick="toggleDipoleAnim()"]');
+  if (dipoleAnimating) {
+    btn.textContent = '⏸ Pause';
+    dipoleVel = 0;
+    animateDipole();
+  } else {
+    btn.textContent = '▶ Animate';
+    cancelAnimationFrame(dipoleAnimId2);
+  }
+}
+
+function animateDipole() {
+  const E = parseFloat(document.getElementById('eFieldSlider').value) * 1000;
+  const p = 1e-6;
+  const I = 1e-8;
+  // τ = pE sinθ → α = τ/I
+  const torque = p*E*Math.sin(dipoleAngle);
+  const alpha = -torque/I;
+  dipoleVel += alpha * 0.016;
+  dipoleVel *= 0.98; // damping
+  dipoleAngle += dipoleVel * 0.016;
+  drawDipole();
+  dipoleAnimId2 = requestAnimationFrame(animateDipole);
+}
+
+document.getElementById('eFieldSlider').addEventListener('input', function() {
+  document.getElementById('eFieldVal').textContent = this.value + ' kN/C';
+  if (!dipoleAnimating) drawDipole();
+});
+document.getElementById('angleSlider').addEventListener('input', function() {
+  document.getElementById('angleVal').textContent = this.value + '°';
+  dipoleAngle = parseFloat(this.value) * Math.PI/180;
+  if (!dipoleAnimating) drawDipole();
+});
+
+function drawDipole() {
+  const canvas = document.getElementById('dipoleCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const E = parseFloat(document.getElementById('eFieldSlider').value) * 1000;
+  const p = 1e-6;
+
+  ctx.clearRect(0,0,W,H);
+
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.03)'; ctx.lineWidth=1;
+  for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  // Uniform E field arrows (horizontal)
+  for (let y=H*0.1;y<H;y+=50) {
+    ctx.save();
+    ctx.strokeStyle='rgba(79,142,247,0.3)'; ctx.lineWidth=1.5;
+    for(let x=30;x<W-20;x+=60) {
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+30,y);
+      ctx.stroke();
+      // arrowhead
+      ctx.beginPath(); ctx.moveTo(x+30,y); ctx.lineTo(x+22,y-4); ctx.lineTo(x+22,y+4); ctx.closePath();
+      ctx.fillStyle='rgba(79,142,247,0.3)'; ctx.fill();
+    }
+    ctx.restore();
+  }
+  ctx.fillStyle='rgba(79,142,247,0.5)'; ctx.font='12px Space Mono,monospace';
+  ctx.fillText('E →', W-55, 30);
+
+  // Dipole
+  const cx=W/2, cy=H/2, len=70;
+  const cosA=Math.cos(dipoleAngle), sinA=Math.sin(dipoleAngle);
+  const px1=cx+cosA*len, py1=cy+sinA*len; // positive
+  const px2=cx-cosA*len, py2=cy-sinA*len; // negative
+
+  // Draw rod
+  ctx.save();
+  ctx.strokeStyle='rgba(255,255,255,0.5)'; ctx.lineWidth=4;
+  ctx.beginPath(); ctx.moveTo(px2,py2); ctx.lineTo(px1,py1); ctx.stroke();
+  ctx.restore();
+
+  // + charge
+  ctx.save();
+  ctx.shadowColor='#4f8ef7'; ctx.shadowBlur=20;
+  ctx.beginPath(); ctx.arc(px1,py1,16,0,Math.PI*2);
+  ctx.fillStyle='rgba(79,142,247,0.85)'; ctx.fill();
+  ctx.restore();
+  ctx.strokeStyle='#4f8ef7'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(px1,py1,16,0,Math.PI*2); ctx.stroke();
+  ctx.fillStyle='#fff'; ctx.font='bold 14px DM Sans'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('+', px1,py1);
+
+  // - charge
+  ctx.save();
+  ctx.shadowColor='#f72585'; ctx.shadowBlur=20;
+  ctx.beginPath(); ctx.arc(px2,py2,16,0,Math.PI*2);
+  ctx.fillStyle='rgba(247,37,133,0.85)'; ctx.fill();
+  ctx.restore();
+  ctx.strokeStyle='#f72585'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(px2,py2,16,0,Math.PI*2); ctx.stroke();
+  ctx.fillStyle='#fff'; ctx.font='bold 16px DM Sans'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('−', px2,py2);
+
+  // p vector arrow
+  ctx.save();
+  ctx.strokeStyle='#ffd166'; ctx.lineWidth=2;
+  ctx.setLineDash([]);
+  const pMid = {x:cx,y:cy};
+  ctx.beginPath(); ctx.moveTo(pMid.x,pMid.y); ctx.lineTo(pMid.x+cosA*40,pMid.y+sinA*40); ctx.stroke();
+  ctx.fillStyle='#ffd166'; ctx.font='12px Space Mono'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('p⃗', pMid.x+cosA*50, pMid.y+sinA*50);
+  ctx.restore();
+
+  // Torque
+  const torque = p*E*Math.sin(dipoleAngle);
+  const angleDeg = (dipoleAngle*180/Math.PI).toFixed(1);
+  document.getElementById('torqueDisplay').textContent = `θ=${angleDeg}° | τ = ${(torque*1e6).toFixed(3)} μN·m`;
+
+  ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+}
+
+drawDipole();
+
+// ═══════════════════════════════════════════
+// SIMULATION 4: SUPERPOSITION
+// ═══════════════════════════════════════════
+
+function superPreset(type) {
+  const canvas = document.getElementById('superCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx=W/2, cy=H/2;
+
+  let charges=[], testPoint={x:cx,y:cy};
+  if (type==='triangle') {
+    const r=120;
+    charges = [
+      {x:cx+r*Math.cos(-Math.PI/2), y:cy+r*Math.sin(-Math.PI/2), q:1},
+      {x:cx+r*Math.cos(-Math.PI/2+2*Math.PI/3), y:cy+r*Math.sin(-Math.PI/2+2*Math.PI/3), q:1},
+      {x:cx+r*Math.cos(-Math.PI/2+4*Math.PI/3), y:cy+r*Math.sin(-Math.PI/2+4*Math.PI/3), q:1},
+    ];
+  } else if (type==='square') {
+    const r=100;
+    charges = [
+      {x:cx-r,y:cy-r,q:1},{x:cx+r,y:cy-r,q:1},
+      {x:cx+r,y:cy+r,q:-1},{x:cx-r,y:cy+r,q:-1},
+    ];
+  } else {
+    charges = [
+      {x:cx-200,y:cy,q:2},{x:cx,y:cy,q:-1},{x:cx+180,y:cy,q:2},
+    ];
+    testPoint={x:cx,y:cy-80};
+  }
+
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='rgba(255,255,255,0.03)'; ctx.lineWidth=1;
+  for(let x=0;x<W;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+
+  // Compute net field at center
+  let netEx=0, netEy=0;
+  const forces=[];
+  charges.forEach((c,i) => {
+    const dx=testPoint.x-c.x, dy=testPoint.y-c.y;
+    const r2=dx*dx+dy*dy, r=Math.sqrt(r2);
+    const E=c.q/r2;
+    const ex=E*dx/r, ey=E*dy/r;
+    netEx+=ex; netEy+=ey;
+    forces.push({ex,ey,i});
+  });
+
+  const scale=60;
+  // Draw individual force arrows
+  const colors=['#4f8ef7','#9b5de5','#f72585','#ffd166'];
+  forces.forEach((f,i) => {
+    const col=colors[i%colors.length];
+    const mag=Math.sqrt(f.ex*f.ex+f.ey*f.ey);
+    if(mag<1e-6) return;
+    const nx=f.ex/mag, ny=f.ey/mag;
+    const arrowLen=Math.min(70, mag*scale);
+    ctx.save();
+    ctx.strokeStyle=col; ctx.lineWidth=2;
+    ctx.setLineDash([5,3]);
+    ctx.beginPath();
+    ctx.moveTo(testPoint.x,testPoint.y);
+    ctx.lineTo(testPoint.x+nx*arrowLen, testPoint.y+ny*arrowLen);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=col; ctx.font='11px Space Mono,monospace';
+    ctx.fillText('E'+(i+1), testPoint.x+nx*arrowLen+5, testPoint.y+ny*arrowLen-5);
+    ctx.restore();
+  });
+
+  // Draw net field arrow
+  const netMag=Math.sqrt(netEx*netEx+netEy*netEy);
+  if(netMag>1e-6) {
+    const nnx=netEx/netMag, nny=netEy/netMag;
+    const netLen=Math.min(90, netMag*scale);
+    ctx.save();
+    ctx.strokeStyle='#06d6a0'; ctx.lineWidth=3; ctx.shadowColor='#06d6a0'; ctx.shadowBlur=10;
+    ctx.beginPath(); ctx.moveTo(testPoint.x,testPoint.y); ctx.lineTo(testPoint.x+nnx*netLen,testPoint.y+nny*netLen); ctx.stroke();
+    ctx.fillStyle='#06d6a0';
+    ctx.beginPath();
+    ctx.moveTo(testPoint.x+nnx*netLen,testPoint.y+nny*netLen);
+    ctx.lineTo(testPoint.x+nnx*netLen-10*(nnx-nny*0.4),testPoint.y+nny*netLen-10*(nny+nnx*0.4));
+    ctx.lineTo(testPoint.x+nnx*netLen-10*(nnx+nny*0.4),testPoint.y+nny*netLen-10*(nny-nnx*0.4));
+    ctx.closePath(); ctx.fill();
+    ctx.font='12px Space Mono,monospace';
+    ctx.fillText('E_net', testPoint.x+nnx*netLen+5, testPoint.y+nny*netLen+5);
+    ctx.restore();
+  }
+
+  // Draw charges
+  charges.forEach((c,i) => {
+    ctx.save();
+    ctx.shadowColor=c.q>0?'#4f8ef7':'#f72585'; ctx.shadowBlur=20;
+    ctx.beginPath(); ctx.arc(c.x,c.y,18,0,Math.PI*2);
+    ctx.fillStyle=c.q>0?'rgba(79,142,247,0.8)':'rgba(247,37,133,0.8)'; ctx.fill();
+    ctx.restore();
+    ctx.strokeStyle=c.q>0?'#4f8ef7':'#f72585'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(c.x,c.y,18,0,Math.PI*2); ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font='bold 13px DM Sans';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText((c.q>0?'+':'')+c.q, c.x,c.y);
+  });
+
+  // Draw test point
+  ctx.save();
+  ctx.shadowColor='#06d6a0'; ctx.shadowBlur=15;
+  ctx.beginPath(); ctx.arc(testPoint.x,testPoint.y,8,0,Math.PI*2);
+  ctx.fillStyle='#06d6a0'; ctx.fill();
+  ctx.restore();
+  ctx.fillStyle='#06d6a0'; ctx.font='11px Space Mono,monospace';
+  ctx.textAlign='center'; ctx.textBaseline='top';
+  ctx.fillText('test point', testPoint.x, testPoint.y+12);
+
+  // Result text
+  const netMagFinal=Math.sqrt(netEx*netEx+netEy*netEy);
+  ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.font='12px Space Mono,monospace';
+  ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+  ctx.fillText(`|E_net| = ${(netMagFinal*100).toFixed(3)} (scaled)`, 16, H-16);
+  if(netMagFinal < 0.001) {
+    ctx.fillStyle='#06d6a0';
+    ctx.fillText('→ E = 0 at test point (symmetric configuration!)', 16, H-36);
+  }
+}
+
+// Init with triangle preset
+setTimeout(() => superPreset('triangle'), 100);
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+
+renderRoadmap();
+renderFormulas();
+renderExamples();
+renderMemory();
+renderPYQ();
+renderRevision();
+updateProgress();
+presetDipole();
+drawFieldLines();
+
+// Tab switching for Charging Methods (inside concept card)
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('tab-btn') && !e.target.closest('#revision')) {
+    const parent = e.target.closest('.concept-body');
+    if (!parent) return;
+    parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    parent.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    e.target.classList.add('active');
+    const targetId = e.target.getAttribute('onclick')?.match(/'([^']+)'\)/)?.[1];
+    if (targetId) document.getElementById(targetId)?.classList.add('active');
+  }
+});
+
+// Scroll spy
+const sectionIds = ['hero','roadmap','concepts','simulations','formulas','examples','memory','pyq','revision'];
+const navItems = document.querySelectorAll('.nav-item');
+window.addEventListener('scroll', () => {
+  let current = 'hero';
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 200) current = id;
+  });
+  navItems.forEach(item => {
+    item.classList.toggle('active', item.getAttribute('href') === '#'+current);
+  });
+});
+
+// Close sidebar on mobile when nav item clicked
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (window.innerWidth < 900) document.getElementById('sidebar').classList.remove('open');
+  });
+});
+
+// Field canvas click to add charge
+document.getElementById('fieldCanvas').addEventListener('click', e => {
+  const rect = e.target.getBoundingClientRect();
+  const scaleX = e.target.width / rect.width;
+  const scaleY = e.target.height / rect.height;
+  const x = (e.clientX - rect.left) * scaleX;
+  const y = (e.clientY - rect.top) * scaleY;
+  fieldCharges.push({x, y, q: 1});
+  drawFieldLines();
+});
+
+console.log('%c⚡ Electric Charges & Fields — JEE Mastery Tool Loaded!', 'color:#4f8ef7; font-size:16px; font-weight:bold;');
+</script>
+</body>
+</html>
